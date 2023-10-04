@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { FilterValuesType } from "../App"
 
 type TodoLisPropsType = {
@@ -6,6 +6,7 @@ type TodoLisPropsType = {
     tasks: Array<TaskType>
     removeTask: (id: string) => void
     changeFilter: (value: FilterValuesType) => void
+    addTask: (newTaskTitle: string) => void
 }
 
 export type TaskType = {
@@ -15,12 +16,28 @@ export type TaskType = {
 }
 
 export const TodoList: FC<TodoLisPropsType> = (props) => {
+
+    const [newTaskTitle, setNewTaskTitle] = useState('')
+
+    const addTask = () => {
+        props.addTask(newTaskTitle)
+        setNewTaskTitle('')
+    }
+
     return (
         <div className="todolist">
             <h3>{props.title}</h3>
             <div>
-                <input />
-                <button>+</button>
+                <input
+                    value={newTaskTitle}
+                    onChange={(e) => setNewTaskTitle(e.currentTarget.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            addTask()
+                        }
+                    }}
+                />
+                <button onClick={addTask}>+</button>
             </div>
             <ul>
                 {props.tasks.map(t => {
