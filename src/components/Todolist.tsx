@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { ChangeEvent, FC, KeyboardEvent, useState } from "react"
 import { FilterValuesType } from "../App"
 
 type TodoLisPropsType = {
@@ -19,9 +19,31 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
 
     const [newTaskTitle, setNewTaskTitle] = useState('')
 
+    const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewTaskTitle(e.currentTarget.value)
+    }
+
+    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            addTask()
+        }
+    }
+
     const addTask = () => {
         props.addTask(newTaskTitle)
         setNewTaskTitle('')
+    }
+
+    const onAllClickHandler = () => {
+        props.changeFilter('all')
+    }
+
+    const onActiveClickHandler = () => {
+        props.changeFilter('active')
+    }
+
+    const onCompledClickHandler = () => {
+        props.changeFilter('completed')
     }
 
     return (
@@ -30,12 +52,8 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
             <div>
                 <input
                     value={newTaskTitle}
-                    onChange={(e) => setNewTaskTitle(e.currentTarget.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            addTask()
-                        }
-                    }}
+                    onChange={onNewTitleChangeHandler}
+                    onKeyDown={onKeyDownHandler}
                 />
                 <button onClick={addTask}>+</button>
             </div>
@@ -50,9 +68,9 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
                     )
                 })}
             </ul>
-            <button onClick={() => props.changeFilter('all')}>All</button>
-            <button onClick={() => props.changeFilter('active')}>Active</button>
-            <button onClick={() => props.changeFilter('completed')}>Completed</button>
+            <button onClick={onAllClickHandler}>All</button>
+            <button onClick={onActiveClickHandler}>Active</button>
+            <button onClick={onCompledClickHandler}>Completed</button>
         </div>
     )
 }
