@@ -7,6 +7,7 @@ type TodoLisPropsType = {
     removeTask: (id: string) => void
     changeFilter: (value: FilterValuesType) => void
     addTask: (newTaskTitle: string) => void
+    changeTaskStatus: (taskId: string, newIsDone: boolean) => void
 }
 
 export type TaskType = {
@@ -59,9 +60,18 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
             </div>
             <ul>
                 {props.tasks.map(t => {
+
+                    const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                        props.changeTaskStatus(t.id, e.currentTarget.checked)
+                    }
+
                     return (
                         <li key={t.id}>
-                            <input type="checkbox" checked={t.isDone} />
+                            <input
+                                type="checkbox"
+                                checked={t.isDone}
+                                onChange={onChangeTaskStatusHandler}
+                            />
                             <span>{t.title}</span>
                             <button onClick={() => props.removeTask(t.id)}>x</button>
                         </li>
