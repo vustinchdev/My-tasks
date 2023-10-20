@@ -4,9 +4,10 @@ import { FilterValuesType } from "../App"
 type TodoLisPropsType = {
     title: string
     tasks: Array<TaskType>
+    todolistId: string
     filter: FilterValuesType
     removeTask: (id: string) => void
-    changeFilter: (value: FilterValuesType) => void
+    changeFilter: (todolistId: string, value: FilterValuesType) => void
     addTask: (newTaskTitle: string) => void
     changeTaskStatus: (taskId: string, newIsDone: boolean) => void
 }
@@ -43,15 +44,15 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
     }
 
     const onAllClickHandler = () => {
-        props.changeFilter('all')
+        props.changeFilter(props.todolistId, 'all')
     }
 
     const onActiveClickHandler = () => {
-        props.changeFilter('active')
+        props.changeFilter(props.todolistId, 'active')
     }
 
     const onCompledClickHandler = () => {
-        props.changeFilter('completed')
+        props.changeFilter(props.todolistId, 'completed')
     }
 
     return (
