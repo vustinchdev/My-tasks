@@ -6,10 +6,10 @@ type TodoLisPropsType = {
     tasks: Array<TaskType>
     todolistId: string
     filter: FilterValuesType
-    removeTask: (id: string) => void
+    removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
-    addTask: (newTaskTitle: string) => void
-    changeTaskStatus: (taskId: string, newIsDone: boolean) => void
+    addTask: (todolistId: string, newTaskTitle: string) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
 }
 
 export type TaskType = {
@@ -36,7 +36,7 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
 
     const addTask = () => {
         if (newTaskTitle.trim() !== '') {
-            props.addTask(newTaskTitle.trim())
+            props.addTask(props.todolistId, newTaskTitle.trim())
             setNewTaskTitle('')
         } else {
             setError('Title is required')
@@ -72,7 +72,7 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
                 {props.tasks.map(t => {
 
                     const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(t.id, e.currentTarget.checked)
+                        props.changeTaskStatus(props.todolistId, t.id, e.currentTarget.checked)
                     }
 
                     return (
@@ -83,7 +83,7 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
                                 onChange={onChangeTaskStatusHandler}
                             />
                             <span>{t.title}</span>
-                            <button onClick={() => props.removeTask(t.id)}>x</button>
+                            <button onClick={() => props.removeTask(props.todolistId, t.id)}>x</button>
                         </li>
                     )
                 })}
