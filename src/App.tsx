@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import './App.css';
 import { TaskType, TodoList } from './components/Todolist';
 import { v1 } from 'uuid';
+import { AddItemForm } from './components/AddItemForm';
 
 export type FilterValuesType = 'all' | 'completed' | 'active'
 
-type TodolistsType = {
+type TodolistType = {
   id: string
   title: string
   filter: FilterValuesType
+}
+
+type TasksStateType = {
+  [key: string]: TaskType[]
 }
 
 function App() {
@@ -16,12 +21,12 @@ function App() {
   let todolistID1 = v1()
   let todolistID2 = v1()
 
-  let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+  let [todolists, setTodolists] = useState<Array<TodolistType>>([
     { id: todolistID1, title: 'What to learn', filter: 'all' },
     { id: todolistID2, title: 'What to buy', filter: 'all' },
   ])
 
-  let [tasks, setTasks] = useState({
+  let [tasks, setTasks] = useState<TasksStateType>({
     [todolistID1]: [
       { id: v1(), title: 'HTML&CSS', isDone: true },
       { id: v1(), title: 'JS', isDone: true },
@@ -43,11 +48,11 @@ function App() {
     setTodolists(todolists.map(tl => tl.id === todolistId ? { ...tl, filter: value } : tl))
   }
 
-  const addTask = (todolistId: string, newTaskTitle: string) => {
+  const addTask = (todolistId: string, title: string) => {
     const newTask = {
       id: v1(),
       isDone: false,
-      title: newTaskTitle
+      title
     }
     setTasks({ ...tasks, [todolistId]: [newTask, ...tasks[todolistId]] })
   }
@@ -58,10 +63,23 @@ function App() {
 
   const removeTodolist = (todolistId: string) => {
     setTodolists(todolists.filter(tl => tl.id !== todolistId))
+    delete tasks[todolistId]
+  }
+
+  const addTodolist = (title: string) => {
+    const newId = v1()
+    let newTodolist: TodolistType = {
+      id: newId,
+      title,
+      filter: 'all'
+    }
+    setTodolists([...todolists, newTodolist])
+    setTasks({ ...tasks, [newId]: [] })
   }
 
   return (
     <div className="App">
+      <AddItemForm onClick={addTodolist} />
 
       {todolists.map(tl => {
 
