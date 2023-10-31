@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, KeyboardEvent, useState } from "react"
 import { FilterValuesType } from "../App"
 import { AddItemForm } from "./AddItemForm"
+import { EditableSpan } from "./EditableSpan"
 
 type TodoLisPropsType = {
     title: string
@@ -12,6 +13,7 @@ type TodoLisPropsType = {
     addTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     removeTodolist: (todolistId: string) => void
+    updateTask: (todolistId: string, taskId: string, title: string) => void
 }
 
 export type TaskType = {
@@ -40,7 +42,6 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
 
     const addTaskHandler = (newTitle: string) => {
         props.addTask(props.todolistId, newTitle)
-
     }
 
     return (
@@ -57,6 +58,10 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
                         props.changeTaskStatus(props.todolistId, t.id, e.currentTarget.checked)
                     }
 
+                    const updateTaskHandler = (title: string) => {
+                        props.updateTask(props.todolistId, t.id, title)
+                    }
+
                     return (
                         <li key={t.id} className={t.isDone ? 'is-done' : ''}>
                             <input
@@ -64,7 +69,7 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
                                 checked={t.isDone}
                                 onChange={onChangeTaskStatusHandler}
                             />
-                            <span>{t.title}</span>
+                            <EditableSpan title={t.title} onClick={updateTaskHandler} />
                             <button onClick={() => props.removeTask(props.todolistId, t.id)}>x</button>
                         </li>
                     )
