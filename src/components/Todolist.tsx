@@ -1,12 +1,12 @@
-import { ChangeEvent, FC, KeyboardEvent, useState } from "react"
+import { ChangeEvent, FC, KeyboardEvent, memo, useCallback, useState } from "react"
 import { FilterValuesType } from "../App"
 import { AddItemForm } from "./AddItemForm"
 import { EditableSpan } from "./EditableSpan"
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import BackspaceIcon from '@mui/icons-material/Backspace';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
+import { Task } from "./Task";
+
 
 type TodoLisPropsType = {
     title: string
@@ -28,30 +28,31 @@ export type TaskType = {
     isDone: boolean
 }
 
-export const TodoList: FC<TodoLisPropsType> = (props) => {
+export const TodoList: FC<TodoLisPropsType> = memo((props) => {
 
-    const onAllClickHandler = () => {
-        props.changeFilter(props.todolistId, 'all')
-    }
+    const onAllClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'all'), [props.changeFilter, props.todolistId])
+    const onActiveClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'active'), [props.changeFilter, props.todolistId])
+    const onCompledClickHandler = useCallback(() => props.changeFilter(props.todolistId, 'completed'), [props.changeFilter, props.todolistId])
 
-    const onActiveClickHandler = () => {
-        props.changeFilter(props.todolistId, 'active')
-    }
-
-    const onCompledClickHandler = () => {
-        props.changeFilter(props.todolistId, 'completed')
-    }
 
     const removeTodolistHandler = () => {
         props.removeTodolist(props.todolistId)
     }
 
-    const addTaskHandler = (newTitle: string) => {
+    const addTaskHandler = useCallback((newTitle: string) => {
         props.addTask(props.todolistId, newTitle)
-    }
+    }, [props.addTask, props.todolistId])
 
-    const changeTodolistTitleHandler = (title: string) => {
+    const changeTodolistTitleHandler = useCallback((title: string) => {
         props.changeTodolistTitle(props.todolistId, title)
+    }, [props.changeTodolistTitle, props.todolistId])
+
+    let tasksForTodoList = props.tasks;
+    if (props.filter === 'completed') {
+        tasksForTodoList = props.tasks.filter(t => t.isDone)
+    }
+    if (props.filter === 'active') {
+        tasksForTodoList = props.tasks.filter(t => !t.isDone)
     }
 
     return (
@@ -64,31 +65,12 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
             </h3>
             <AddItemForm onClick={addTaskHandler} />
             <ul>
-                {props.tasks.map(t => {
-
-                    const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(props.todolistId, t.id, e.currentTarget.checked)
-                    }
-
-                    const updateTaskHandler = (title: string) => {
-                        props.changeTaskTitle(props.todolistId, t.id, title)
-                    }
-
-                    return (
-                        <li key={t.id} className={t.isDone ? 'is-done' : ''}>
-                            <Checkbox
-                                style={t.isDone ? { color: '#d32f2f' } : { color: '#1976d2' }}
-                                checked={t.isDone}
-                                onChange={onChangeTaskStatusHandler}
-                            />
-
-                            <EditableSpan title={t.title} onClick={updateTaskHandler} />
-                            <IconButton aria-label="delete"
-                                onClick={() => props.removeTask(props.todolistId, t.id)}>
-                                <BackspaceIcon />
-                            </IconButton>
-                        </li>
-                    )
+                {tasksForTodoList.map(t => {
+                    return <Task
+                        key={t.id}
+                        task={t}
+                        todolistId={props.todolistId}
+                    />
                 })}
             </ul>
             <Button
@@ -109,4 +91,4 @@ export const TodoList: FC<TodoLisPropsType> = (props) => {
 
         </div>
     )
-}
+})
