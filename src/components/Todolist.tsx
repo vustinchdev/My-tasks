@@ -1,10 +1,9 @@
-import { ChangeEvent, FC, KeyboardEvent, memo, useCallback, useState } from "react"
+import { FC, memo, useCallback } from "react"
 import { FilterValuesType } from "../App"
-import { AddItemForm } from "./AddItemForm"
+import { AddItemForm } from "./AddItemForm/AddItemForm"
 import { EditableSpan } from "./EditableSpan"
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
 import { Task } from "./Task";
 import { ButtonWithMemo } from "./ButtonWithMemo";
 
