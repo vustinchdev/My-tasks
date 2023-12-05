@@ -2,10 +2,10 @@ import React, { memo, ChangeEvent } from 'react'
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import { TaskType } from './Todolist';
+import { TaskType } from '../Todolist';
 import { useDispatch } from 'react-redux';
-import { changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from '../state/tasks-reducer';
-import { EditableSpan } from './EditableSpan';
+import { changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from '../../state/tasks-reducer';
+import { EditableSpan } from '../EditableSpan';
 
 type TaskPropsType = {
     task: TaskType
