@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import { TaskType } from '../Todolist';
 import { useDispatch } from 'react-redux';
 import { changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from '../../state/tasks-reducer';
-import { EditableSpan } from '../EditableSpan';
+import { EditableSpan } from '../EditableSpan/EditableSpan';
 
 type TaskPropsType = {
     task: TaskType
