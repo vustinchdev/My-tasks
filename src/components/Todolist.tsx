@@ -1,5 +1,5 @@
 import { FC, memo, useCallback } from "react"
-import { FilterValuesType } from "../App"
+import { FilterValuesType } from "./App/App"
 import { AddItemForm } from "./AddItemForm/AddItemForm"
 import { EditableSpan } from "./EditableSpan/EditableSpan"
 import IconButton from '@mui/material/IconButton';

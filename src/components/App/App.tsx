@@ -1,13 +1,13 @@
-import './App.css';
-import { TaskType, TodoList } from './components/Todolist';
-import { AddItemForm } from './components/AddItemForm/AddItemForm';
-import ButtonAppBar from './components/ButtonAppBar';
+import './../../App.css';
+import { TaskType, TodoList } from '../Todolist';
+import { AddItemForm } from '../AddItemForm/AddItemForm';
+import ButtonAppBar from '../ButtonAppBar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from './state/todolists-reducer';
-import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './state/tasks-reducer';
-import { AppRootStateType } from './state/store';
+import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC } from '../../state/todolists-reducer';
+import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from '../../state/tasks-reducer';
+import { AppRootStateType } from '../../state/store';
 import { useDispatch, useSelector } from 'react-redux'
 import { useCallback } from 'react';
 
