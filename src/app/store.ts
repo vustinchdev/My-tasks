@@ -1,8 +1,9 @@
 import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
-import { TasksActionsType, tasksReducer } from "./tasks-reducer";
-import { TodolistsActionsType, todolistsReducer } from "./todolists-reducer";
+
 import { ThunkDispatch, thunk } from "redux-thunk";
 import { useDispatch } from "react-redux";
+import { tasksReducer, TasksActionsType } from "../features/TodolistsList/tasks-reducer";
+import { todolistsReducer, TodolistsActionsType } from "../features/TodolistsList/todolists-reducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,

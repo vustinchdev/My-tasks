@@ -1,5 +1,4 @@
-
-import { TasksStateType } from "../components/App/App"
+import { TasksStateType } from "../../app/App"
 import { tasksReducer } from "./tasks-reducer"
 import { TodolistDomainType, addTodolistAC, todolistsReducer } from "./todolists-reducer"
 
@@ -23,6 +22,6 @@ test('ids should be equals', () => {
     const idFromTasks = keys[0]
     const idFromTodolists = endTodolistsState[0].id
 
-    expect(idFromTasks).toBe(action.payload.todolist.id)
-    expect(idFromTodolists).toBe(action.payload.todolist.id)
+    expect(idFromTasks).toBe(action.todolist.id)
+    expect(idFromTodolists).toBe(action.todolist.id)
 })

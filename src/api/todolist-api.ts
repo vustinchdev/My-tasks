@@ -38,21 +38,18 @@ export type TodolistType = {
     addedDate: string
     order: number
 }
-
 type ResponseType<T = {}> = {
     data: T
     messages: string[]
     fieldsErrors: string[]
     resultCode: number
 }
-
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3
 }
-
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -60,7 +57,6 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
-
 export type TaskType = {
     description: string
     title: string
@@ -73,13 +69,11 @@ export type TaskType = {
     order: number
     addedDate: string
 }
-
 type GetTasksResponse = {
     items: TaskType[]
     totalCount: number
     error: string | null
 }
-
 export type UpdateTaskModelType = {
     title: string
     description: string

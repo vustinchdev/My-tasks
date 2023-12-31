@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Task } from './Task';
-import { ReduxStoreProviderDecorator } from '../../state/ReduxStoreProviderDecorator';
-import { TaskPriorities, TaskStatuses } from '../../api/todolist-api';
+import { ReduxStoreProviderDecorator } from '../../../../stories/decorators/ReduxStoreProviderDecorator';
+import { TaskPriorities, TaskStatuses } from '../../../../api/todolist-api';
 
 
 const meta = {

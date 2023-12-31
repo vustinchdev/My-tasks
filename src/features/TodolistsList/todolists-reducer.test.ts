@@ -1,6 +1,7 @@
+import { FilterValuesType } from '../../app/App'
 import { TodolistDomainType, addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC, todolistsReducer } from './todolists-reducer'
 import { v1 } from 'uuid'
-import { FilterValuesType } from '../components/App/App'
+
 
 let todolistId1: string
 let todolistId2: string

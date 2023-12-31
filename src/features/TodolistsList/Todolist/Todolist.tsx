@@ -1,14 +1,14 @@
 import { FC, memo, useCallback, useEffect } from "react"
-import { FilterValuesType } from "./App/App"
-import { AddItemForm } from "./AddItemForm/AddItemForm"
-import { EditableSpan } from "./EditableSpan/EditableSpan"
+import { FilterValuesType } from "../../../app/App"
+import { AddItemForm } from "../../../components/AddItemForm/AddItemForm"
+import { EditableSpan } from "../../../components/EditableSpan/EditableSpan"
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Task } from "./Task/Task";
-import { ButtonWithMemo } from "./ButtonWithMemo";
-import { TaskStatuses, TaskType } from "../api/todolist-api";
-import { useAppDispatch } from "../state/store";
-import { setTasksTC } from "../state/tasks-reducer";
+import { ButtonWithMemo } from "../../../components/ButtonWithMemo";
+import { TaskStatuses, TaskType } from "../../../api/todolist-api";
+import { useAppDispatch } from "../../../app/store";
+import { setTasksTC } from "../tasks-reducer";
 
 
 type TodoLisPropsType = {
@@ -97,7 +97,6 @@ export const TodoList: FC<TodoLisPropsType> = memo((props) => {
                 onClick={onCompledClickHandler}
                 title="Completed"
             />
-
         </div>
     )
 })
