@@ -1,23 +1,21 @@
 import './App.css';
 import ButtonAppBar from '../components/ButtonAppBar';
 import Container from '@mui/material/Container';
-import { TaskType } from '../api/todolist-api';
 import { TodolistsList } from '../features/TodolistsList/TodolistsList';
+import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar';
 
-export type FilterValuesType = 'all' | 'completed' | 'active'
-
-export type TasksStateType = {
-  [key: string]: TaskType[]
+type PropsType = {
+  demo?: boolean
 }
 
-function App() {
-
+function App({ demo = false }: PropsType) {
 
   return (
     <div className="App">
+      <ErrorSnackbar />
       <ButtonAppBar />
       <Container>
-        <TodolistsList />
+        <TodolistsList demo={demo} />
       </Container>
     </div>
   );

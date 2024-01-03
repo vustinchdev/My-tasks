@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 
 type EditableSpanPropsType = {
     title: string
+    disabled?: boolean
     onClick: (title: string) => void
 }
 
@@ -12,6 +13,9 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
     const [title, setTitle] = useState('')
 
     const editHandler = () => {
+        if (props.disabled) {
+            return
+        }
         setEditMode(!editMode)
         setTitle(props.title)
         if (editMode) {

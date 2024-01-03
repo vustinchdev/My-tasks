@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 
 export type AddItemFormPropsType = {
     onClick: (newTitle: string) => void
+    disabled?: boolean
 }
 
 export const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
@@ -44,10 +45,11 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
                 variant="outlined"
                 size='small'
                 value={title}
+                disabled={props.disabled}
                 onChange={onNewTitleChangeHandler}
                 onKeyDown={onKeyDownHandler}
             />
-            <IconButton onClick={addItem}>
+            <IconButton onClick={addItem} disabled={props.disabled}>
                 <AddBoxIcon style={{ color: '#2e7d32', width: '30px' }} />
             </IconButton>
         </div>

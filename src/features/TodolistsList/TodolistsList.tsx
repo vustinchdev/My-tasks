@@ -4,20 +4,25 @@ import Paper from '@mui/material/Paper';
 import { useSelector } from 'react-redux';
 import { TaskStatuses } from '../../api/todolist-api';
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm';
-import { TasksStateType, FilterValuesType } from '../../app/App';
 import { TodoList } from './Todolist/Todolist';
 import { AppRootStateType, useAppDispatch } from '../../app/store';
-import { removeTaskTC, addTaskTC, updateTaskTC } from './tasks-reducer';
-import { TodolistDomainType, setTodolistsTC, changeTodolistFilterAC, removeTodolistTC, changeTodolistTitleTC, addTodolistTC } from './todolists-reducer';
+import { removeTaskTC, addTaskTC, updateTaskTC, TasksStateType } from './tasks-reducer';
+import { TodolistDomainType, setTodolistsTC, changeTodolistFilterAC, removeTodolistTC, changeTodolistTitleTC, addTodolistTC, FilterValuesType } from './todolists-reducer';
 
+type TodolistsListType = {
+    demo?: boolean
+}
 
-export const TodolistsList = () => {
+export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => {
 
     const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(setTodolistsTC())
     }, [])
 
@@ -66,15 +71,14 @@ export const TodolistsList = () => {
                         <Paper elevation={3} style={{ padding: '15px' }}>
                             <TodoList
                                 key={tl.id}
-                                todolistId={tl.id}
-                                title={tl.title}
+                                demo={demo}
+                                todolist={tl}
                                 tasks={tasks[tl.id]}
                                 removeTask={removeTask}
                                 changeFilter={changeFilter}
                                 addTask={addTask}
                                 changeTaskStatus={changeTaskStatus}
                                 removeTodolist={removeTodolist}
-                                filter={tl.filter}
                                 changeTaskTitle={changeTaskTitle}
                                 changeTodolistTitle={changeTodolistTitle}
                             />

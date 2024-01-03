@@ -1,8 +1,9 @@
 import { AddTodolistACType, RemoveTodolistACType, SetTodolistsACType } from "./todolists-reducer";
 import { TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType, todolistAPI } from "../../api/todolist-api";
 import { Dispatch } from "redux";
-import { TasksStateType } from "../../app/App";
 import { AppRootStateType } from "../../app/store";
+import { RequestStatusType, SetErrorACType, SetStatusACType, setErrorAC, setStatusAC } from "../../app/app-reducer";
+import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils";
 
 
 const initialState: TasksStateType = {}
@@ -51,19 +52,46 @@ export const setTasksAC = (todolistId: string, tasks: TaskType[]) =>
     ({ type: 'SET-TASKS', todolistId, tasks } as const)
 
 export const setTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC('loading'))
     todolistAPI.getTasks(todolistId)
-        .then(res => dispatch(setTasksAC(todolistId, res.data.items)))
+        .then(res => {
+            dispatch(setTasksAC(todolistId, res.data.items))
+            dispatch(setStatusAC('succeeded'))
+        })
 }
 export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC('loading'))
     todolistAPI.deleteTask(todolistId, taskId)
-        .then(() => dispatch(removeTaskAC(todolistId, taskId)))
+        .then((res) => {
+            if (res.data.resultCode === ResultCode.SUCCEEDED) {
+                dispatch(removeTaskAC(todolistId, taskId))
+                dispatch(setStatusAC('succeeded'))
+            } else {
+                handleServerAppError(dispatch, res.data)
+            }
+        })
+        .catch((e) => {
+            handleServerNetworkError(dispatch, e.message)
+        })
 }
 export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC('loading'))
     todolistAPI.addTask(todolistId, title)
-        .then(res => dispatch(addTaskAC(todolistId, res.data.data.item)))
+        .then((res) => {
+            if (res.data.resultCode === ResultCode.SUCCEEDED) {
+                dispatch(addTaskAC(todolistId, res.data.data.item))
+                dispatch(setStatusAC('succeeded'))
+            } else {
+                handleServerAppError(dispatch, res.data)
+            }
+        })
+        .catch((e) => {
+            handleServerNetworkError(dispatch, e.message)
+        })
 }
 export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        dispatch(setStatusAC('loading'))
         const state = getState()
         const task = state.tasks[todolistId].find(t => t.id === taskId)
         if (task) {
@@ -77,7 +105,17 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
                 ...domainModel
             }
             todolistAPI.updateTask(todolistId, taskId, apiModel)
-                .then(() => dispatch(updateTaskAC(todolistId, taskId, domainModel)))
+                .then((res) => {
+                    if (res.data.resultCode === ResultCode.SUCCEEDED) {
+                        dispatch(updateTaskAC(todolistId, taskId, domainModel))
+                        dispatch(setStatusAC('succeeded'))
+                    } else {
+                        handleServerAppError<{ item: TaskType }>(dispatch, res.data)
+                    }
+                })
+                .catch((e) => {
+                    handleServerNetworkError(dispatch, e.message)
+                })
         }
     }
 
@@ -89,6 +127,17 @@ export type UpdateDomainTaskModelType = {
     startDate?: string
     deadline?: string
 }
+export type TasksStateType = {
+    [key: string]: TaskType[]
+}
+export enum ResultCode {
+    SUCCEEDED = 0,
+    ERROR = 1,
+    ERROR_CAPTCHA = 10
+}
+export type TaskDomainType = TaskType & {
+    entityTaskStatus: RequestStatusType
+}
 export type TasksActionsType =
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof addTaskAC>
@@ -97,3 +146,5 @@ export type TasksActionsType =
     | RemoveTodolistACType
     | SetTodolistsACType
     | ReturnType<typeof setTasksAC>
+    | SetStatusACType
+    | SetErrorACType

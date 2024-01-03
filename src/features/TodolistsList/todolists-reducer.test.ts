@@ -1,5 +1,4 @@
-import { FilterValuesType } from '../../app/App'
-import { TodolistDomainType, addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC, todolistsReducer } from './todolists-reducer'
+import { FilterValuesType, TodolistDomainType, addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC, todolistsReducer } from './todolists-reducer'
 import { v1 } from 'uuid'
 
 
@@ -18,14 +17,16 @@ beforeEach(() => {
             title: 'What to learn',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: 'idle'
         },
         {
             id: todolistId2,
             title: 'What to buy',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: 'idle'
         }
     ]
 })
