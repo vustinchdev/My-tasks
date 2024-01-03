@@ -18,7 +18,8 @@ beforeEach(() => {
                 order: 0,
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId1'
+                todoListId: 'todolistId1',
+                entityTaskStatus: 'idle'
             },
             {
                 id: '2',
@@ -30,7 +31,8 @@ beforeEach(() => {
                 order: 0,
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId1'
+                todoListId: 'todolistId1',
+                entityTaskStatus: 'idle'
             },
             {
                 id: '3',
@@ -42,7 +44,8 @@ beforeEach(() => {
                 order: 0,
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId1'
+                todoListId: 'todolistId1',
+                entityTaskStatus: 'idle'
             }
         ],
         'todolistId2': [
@@ -56,7 +59,8 @@ beforeEach(() => {
                 order: 0,
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId2'
+                todoListId: 'todolistId2',
+                entityTaskStatus: 'idle'
 
             },
             {
@@ -69,7 +73,8 @@ beforeEach(() => {
                 order: 0,
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId2'
+                todoListId: 'todolistId2',
+                entityTaskStatus: 'idle'
             },
             {
                 id: '3',
@@ -81,7 +86,8 @@ beforeEach(() => {
                 order: 0,
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId2'
+                todoListId: 'todolistId2',
+                entityTaskStatus: 'idle'
             }
         ]
     }

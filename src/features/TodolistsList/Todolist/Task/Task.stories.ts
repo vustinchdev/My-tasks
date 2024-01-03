@@ -22,7 +22,8 @@ const meta = {
             order: 0,
             priority: TaskPriorities.Low,
             startDate: '',
-            todoListId: 'todolistId1'
+            todoListId: 'todolistId1',
+            entityTaskStatus: 'idle'
         },
         todolistId: 'todolistId1'
     },
@@ -45,7 +46,8 @@ export const TaskIsActiveStory: Story = {
             order: 0,
             priority: TaskPriorities.Low,
             startDate: '',
-            todoListId: 'todolistId1'
+            todoListId: 'todolistId1',
+            entityTaskStatus: 'idle'
         }
     }
 };

@@ -1,12 +1,13 @@
-import React, { memo, ChangeEvent, useCallback } from 'react'
+import React, { memo, ChangeEvent, useCallback } from 'react';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import { EditableSpan } from '../../../../components/EditableSpan/EditableSpan';
-import { TaskStatuses, TaskType } from '../../../../api/todolist-api';
+import { TaskStatuses } from '../../../../api/todolist-api';
+import { TaskDomainType } from '../../tasks-reducer';
 
 type TaskPropsType = {
-    task: TaskType
+    task: TaskDomainType
     todolistId: string
     changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
@@ -29,11 +30,13 @@ export const Task: React.FC<TaskPropsType> = memo((props) => {
             <Checkbox
                 style={props.task.status === TaskStatuses.Completed ? { color: '#d32f2f' } : { color: '#1976d2' }}
                 checked={props.task.status === TaskStatuses.Completed}
+                disabled={props.task.entityTaskStatus === 'loading'}
                 onChange={onChangeTaskStatusHandler}
             />
 
-            <EditableSpan title={props.task.title} onClick={changeTaskTitleHandler} />
+            <EditableSpan title={props.task.title} onClick={changeTaskTitleHandler} disabled={props.task.entityTaskStatus === 'loading'} />
             <IconButton aria-label="delete"
+                disabled={props.task.entityTaskStatus === 'loading'}
                 onClick={onClickHandler}>
                 <BackspaceIcon />
             </IconButton>

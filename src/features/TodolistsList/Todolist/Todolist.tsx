@@ -1,21 +1,20 @@
-import { FC, memo, useCallback, useEffect } from "react"
-import { AddItemForm } from "../../../components/AddItemForm/AddItemForm"
-import { EditableSpan } from "../../../components/EditableSpan/EditableSpan"
+import { FC, memo, useCallback, useEffect } from "react";
+import { AddItemForm } from "../../../components/AddItemForm/AddItemForm";
+import { EditableSpan } from "../../../components/EditableSpan/EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Task } from "./Task/Task";
 import { ButtonWithMemo } from "../../../components/ButtonWithMemo";
-import { TaskStatuses, TaskType } from "../../../api/todolist-api";
+import { TaskStatuses } from "../../../api/todolist-api";
 import { useAppDispatch } from "../../../app/store";
-import { setTasksTC } from "../tasks-reducer";
+import { TaskDomainType, setTasksTC } from "../tasks-reducer";
 import { FilterValuesType, TodolistDomainType } from "../todolists-reducer";
-import { RequestStatusType } from "../../../app/app-reducer";
 
 
 type TodoLisPropsType = {
     todolist: TodolistDomainType
     demo?: boolean
-    tasks: TaskType[]
+    tasks: TaskDomainType[]
     removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
     addTask: (todolistId: string, title: string) => void

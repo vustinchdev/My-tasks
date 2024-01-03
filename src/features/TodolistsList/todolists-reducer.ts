@@ -18,7 +18,7 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
             return state.map(tl => tl.id === action.id ? { ...tl, filter: action.filter } : tl)
         case 'SET-TODOLISTS':
             return action.todolists.map(tl => ({ ...tl, filter: 'all', entityStatus: 'idle' }))
-        case 'CHANGE-ENTITY-STATUS':
+        case 'CHANGE-TODOLIST-ENTITY-STATUS':
             return state.map(tl => tl.id === action.todolistId ? { ...tl, entityStatus: action.entityStatus } : tl)
         default: return state
     }
@@ -29,8 +29,8 @@ export const addTodolistAC = (todolist: TodolistType) => ({ type: 'ADD-TODOLIST'
 export const changeTodolistTitleAC = (id: string, title: string) => ({ type: 'CHANGE-TODOLIST-TITLE', id, title } as const)
 export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => ({ type: 'CHANGE-TODOLIST-FILTER', id, filter } as const)
 export const setTodolistsAC = (todolists: TodolistType[]) => ({ type: 'SET-TODOLISTS', todolists } as const)
-export const changeEntityStatusAC = (todolistId: string, entityStatus: RequestStatusType) =>
-    ({ type: 'CHANGE-ENTITY-STATUS', todolistId, entityStatus } as const)
+export const changeTodolistEntityStatusAC = (todolistId: string, entityStatus: RequestStatusType) =>
+    ({ type: 'CHANGE-TODOLIST-ENTITY-STATUS', todolistId, entityStatus } as const)
 
 export const setTodolistsTC = () => (dispatch: Dispatch) => {
     dispatch(setStatusAC('loading'))
@@ -55,7 +55,7 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
 }
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setStatusAC('loading'))
-    dispatch(changeEntityStatusAC(todolistId, 'loading'))
+    dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
     todolistAPI.deleteTodolist(todolistId)
         .then((res) => {
             if (res.data.resultCode === ResultCode.SUCCEEDED) {
@@ -100,4 +100,4 @@ export type TodolistsActionsType =
     | ReturnType<typeof changeTodolistFilterAC>
     | SetTodolistsACType
     | SetStatusACType
-    | ReturnType<typeof changeEntityStatusAC>
+    | ReturnType<typeof changeTodolistEntityStatusAC>
