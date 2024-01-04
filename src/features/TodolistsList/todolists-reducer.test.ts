@@ -1,4 +1,5 @@
-import { FilterValuesType, TodolistDomainType, addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC, todolistsReducer } from './todolists-reducer'
+import { RequestStatusType } from '../../app/app-reducer'
+import { FilterValuesType, TodolistDomainType, addTodolistAC, changeTodolistEntityStatusAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC, setTodolistsAC, todolistsReducer } from './todolists-reducer'
 import { v1 } from 'uuid'
 
 
@@ -73,4 +74,22 @@ test('correct filter of todolist should be changed', () => {
 
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe(newFilter)
+})
+
+test('todolists should be added', () => {
+
+    const action = setTodolistsAC(startState)
+
+    const endState = todolistsReducer([], action)
+
+    expect(endState.length).toBe(2)
+})
+
+test('correct entity status of todolist should be changed', () => {
+    let newStatus: RequestStatusType = 'loading'
+
+    const endState = todolistsReducer(startState, changeTodolistEntityStatusAC(todolistId2, newStatus))
+
+    expect(endState[0].entityStatus).toBe('idle')
+    expect(endState[1].entityStatus).toBe(newStatus)
 })
