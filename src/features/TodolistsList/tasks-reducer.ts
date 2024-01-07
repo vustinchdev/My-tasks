@@ -80,7 +80,7 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
             }
         })
         .catch((e) => {
-            handleServerNetworkError(dispatch, e.message)
+            handleServerNetworkError(dispatch, e)
         })
 }
 export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
@@ -95,7 +95,7 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
             }
         })
         .catch((e) => {
-            handleServerNetworkError(dispatch, e.message)
+            handleServerNetworkError(dispatch, e)
         })
 }
 export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
@@ -123,7 +123,7 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
                     }
                 })
                 .catch((e) => {
-                    handleServerNetworkError(dispatch, e.message)
+                    handleServerNetworkError(dispatch, e)
                 })
         }
     }

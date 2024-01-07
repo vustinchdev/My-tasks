@@ -7,11 +7,18 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LinearProgress from '@mui/material/LinearProgress';
-import { useAppSelector } from '../app/store';
+import { useAppDispatch, useAppSelector } from '../app/store';
+import { logoutTC } from '../features/Login/auth-reducer';
 
 export default function ButtonAppBar() {
 
+    const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.app.status)
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+
+    const handleLogoutButtonClick = () => {
+        dispatch(logoutTC())
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -29,7 +36,7 @@ export default function ButtonAppBar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Todolists
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button onClick={handleLogoutButtonClick} color="inherit">Logout</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress color="secondary" />}
             </AppBar>

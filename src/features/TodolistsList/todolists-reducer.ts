@@ -50,7 +50,7 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
             }
         })
         .catch((e) => {
-            handleServerNetworkError(dispatch, e.message)
+            handleServerNetworkError(dispatch, e)
         })
 }
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
@@ -66,7 +66,7 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
             }
         })
         .catch((e) => {
-            handleServerNetworkError(dispatch, e.message)
+            handleServerNetworkError(dispatch, e)
         })
 }
 export const changeTodolistTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
@@ -81,7 +81,7 @@ export const changeTodolistTitleTC = (todolistId: string, title: string) => (dis
             }
         })
         .catch((e) => {
-            handleServerNetworkError(dispatch, e.message)
+            handleServerNetworkError(dispatch, e)
         })
 }
 
