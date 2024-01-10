@@ -3,23 +3,21 @@ import { InitialStateType, appReducer, setErrorAC, setStatusAC } from "./app-red
 let startState: InitialStateType
 
 beforeEach(() => {
-    startState = {
-        status: 'idle',
-        error: null,
-        isInitialized: false
-    }
+  startState = {
+    status: "idle",
+    error: null,
+    isInitialized: false,
+  }
 })
 
-test('correct error message should be set', () => {
+test("correct error message should be set", () => {
+  const endState = appReducer(startState, setErrorAC("some error"))
 
-    const endState = appReducer(startState, setErrorAC('some error'))
-
-    expect(endState.error).toBe('some error');
+  expect(endState.error).toBe("some error")
 })
 
-test('correct status should be set', () => {
+test("correct status should be set", () => {
+  const endState = appReducer(startState, setStatusAC("loading"))
 
-    const endState = appReducer(startState, setStatusAC('loading'))
-
-    expect(endState.status).toBe('loading');
+  expect(endState.status).toBe("loading")
 })
