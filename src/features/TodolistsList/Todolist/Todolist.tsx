@@ -6,8 +6,8 @@ import { TaskStatuses } from "api/todolist-api"
 import { AddItemForm } from "components/AddItemForm/AddItemForm"
 import { ButtonWithMemo } from "components/ButtonWithMemo"
 import { EditableSpan } from "components/EditableSpan/EditableSpan"
-import { TaskDomainType } from "../tasks-reducer"
-import { TodolistDomainType, FilterValuesType } from "../todolists-reducer"
+import { TaskDomainType } from "../tasksSlice"
+import { TodolistDomainType, FilterValuesType } from "../todolistsSlice"
 
 type TodoLisPropsType = {
   todolist: TodolistDomainType

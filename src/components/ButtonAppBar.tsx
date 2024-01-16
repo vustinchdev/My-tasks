@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import LinearProgress from "@mui/material/LinearProgress"
 import { useAppDispatch, useAppSelector } from "app/store"
-import { logoutTC } from "features/Login/auth-reducer"
+import { logoutTC } from "features/Login/authSlice"
 
 export default function ButtonAppBar() {
   const dispatch = useAppDispatch()

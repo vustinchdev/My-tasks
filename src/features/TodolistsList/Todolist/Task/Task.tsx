@@ -4,7 +4,7 @@ import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
 import { TaskStatuses } from "api/todolist-api"
 import { EditableSpan } from "components/EditableSpan/EditableSpan"
-import { TaskDomainType } from "features/TodolistsList/tasks-reducer"
+import { TaskDomainType } from "features/TodolistsList/tasksSlice"
 
 type TaskPropsType = {
   task: TaskDomainType

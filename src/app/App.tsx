@@ -7,7 +7,7 @@ import { Routes, Route, Navigate } from "react-router-dom"
 import { Login } from "../features/Login/Login"
 import { useAppDispatch, useAppSelector } from "./store"
 import { useEffect } from "react"
-import { initializeAppTC } from "./app-reducer"
+import { initializeAppTC } from "./appSlice"
 import CircularProgress from "@mui/material/CircularProgress"
 
 type PropsType = {
