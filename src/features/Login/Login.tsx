@@ -12,12 +12,13 @@ import { loginTC } from "./authSlice"
 import { Navigate } from "react-router-dom"
 import { LoginParams } from "api/auth-api"
 import { useAppDispatch, useAppSelector } from "app/store"
+import { selectIsLoggedIn } from "./auth.selectors"
 
 const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   const { getFieldProps, resetForm, handleSubmit, touched, errors } = useFormik<LoginParams>({
     initialValues: {

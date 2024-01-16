@@ -9,11 +9,13 @@ import MenuIcon from "@mui/icons-material/Menu"
 import LinearProgress from "@mui/material/LinearProgress"
 import { useAppDispatch, useAppSelector } from "app/store"
 import { logoutTC } from "features/Login/authSlice"
+import { selectStatus } from "app/app.selectors"
+import { selectIsLoggedIn } from "features/Login/auth.selectors"
 
 export default function ButtonAppBar() {
   const dispatch = useAppDispatch()
-  const status = useAppSelector((state) => state.app.status)
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)
+  const status = useAppSelector(selectStatus)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   const handleLogoutButtonClick = () => {
     dispatch(logoutTC())

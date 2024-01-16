@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "./store"
 import { useEffect } from "react"
 import { initializeAppTC } from "./appSlice"
 import CircularProgress from "@mui/material/CircularProgress"
+import { selectIsInitialized } from "./app.selectors"
 
 type PropsType = {
   demo?: boolean
@@ -16,7 +17,7 @@ type PropsType = {
 
 function App({ demo = false }: PropsType) {
   const dispatch = useAppDispatch()
-  const isInitialized = useAppSelector<boolean>((state) => state.app.isInitialized)
+  const isInitialized = useAppSelector(selectIsInitialized)
 
   useEffect(() => {
     dispatch(initializeAppTC())
