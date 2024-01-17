@@ -1,5 +1,11 @@
 import { RequestStatusType } from "app/appSlice"
-import { FilterValuesType, TodolistDomainType, todolistsActions, todolistsReducer } from "./todolistsSlice"
+import {
+  FilterValuesType,
+  TodolistDomainType,
+  todolistsActions,
+  todolistsReducer,
+  todolistsThunks,
+} from "./todolistsSlice"
 import { v1 } from "uuid"
 
 let todolistId1: string
@@ -32,7 +38,10 @@ beforeEach(() => {
 })
 
 test("correct todolist should be removed", () => {
-  const endState = todolistsReducer(startState, todolistsActions.removeTodolist({ id: todolistId1 }))
+  const endState = todolistsReducer(
+    startState,
+    todolistsThunks.removeTodolist.fulfilled({ id: todolistId1 }, "requestId", todolistId1),
+  )
 
   expect(endState.length).toBe(1)
   expect(endState[0].id).toBe(todolistId2)
@@ -46,7 +55,10 @@ test("correct todolist should be added", () => {
     order: 0,
   }
 
-  const endState = todolistsReducer(startState, todolistsActions.addTodolist({ todolist: newTodolist }))
+  const endState = todolistsReducer(
+    startState,
+    todolistsThunks.addTodolist.fulfilled({ todolist: newTodolist }, "requestId", "new todolist"),
+  )
 
   expect(endState.length).toBe(3)
   expect(endState[0].title).toBe("new todolist")
@@ -56,9 +68,10 @@ test("correct todolist should be added", () => {
 test("correct todolist should change its name", () => {
   let newTodolistTitle = "New Todolist"
 
+  const payload = { id: todolistId2, title: newTodolistTitle }
   const endState = todolistsReducer(
     startState,
-    todolistsActions.changeTodolistTitle({ id: todolistId2, title: newTodolistTitle }),
+    todolistsThunks.changeTodolistTitle.fulfilled(payload, "requestId", payload),
   )
 
   expect(endState[0].title).toBe("What to learn")
@@ -78,7 +91,7 @@ test("correct filter of todolist should be changed", () => {
 })
 
 test("todolists should be added", () => {
-  const action = todolistsActions.setTodolists({ todolists: startState })
+  const action = todolistsThunks.setTodolists.fulfilled({ todolists: startState }, "requestId")
 
   const endState = todolistsReducer([], action)
 

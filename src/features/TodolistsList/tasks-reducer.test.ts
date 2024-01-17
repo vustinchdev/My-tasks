@@ -1,7 +1,7 @@
 import { TaskStatuses, TaskPriorities } from "api/todolist-api"
 import { RequestStatusType } from "app/appSlice"
 import { TasksStateType, tasksActions, tasksReducer, tasksThunks } from "./tasksSlice"
-import { todolistsActions } from "./todolistsSlice"
+import { todolistsActions, todolistsThunks } from "./todolistsSlice"
 
 let startState: TasksStateType
 
@@ -154,7 +154,10 @@ test("new array should be added when new todolist is added", () => {
     order: 0,
   }
 
-  const endState = tasksReducer(startState, todolistsActions.addTodolist({ todolist: newTodolist }))
+  const endState = tasksReducer(
+    startState,
+    todolistsThunks.addTodolist.fulfilled({ todolist: newTodolist }, "requestId", "new todolist"),
+  )
 
   const keys = Object.keys(endState)
   const newKey = keys.find((k) => k != "todolistId1" && k != "todolistId2")
@@ -167,7 +170,10 @@ test("new array should be added when new todolist is added", () => {
 })
 
 test("property with todolistId should be deleted", () => {
-  const endState = tasksReducer(startState, todolistsActions.removeTodolist({ id: "todolistId2" }))
+  const endState = tasksReducer(
+    startState,
+    todolistsThunks.removeTodolist.fulfilled({ id: "todolistId2" }, "requestId", "todolistId2"),
+  )
 
   const keys = Object.keys(endState)
 
@@ -176,12 +182,15 @@ test("property with todolistId should be deleted", () => {
 })
 
 test("empty arrays should be added when we set todolists", () => {
-  const action = todolistsActions.setTodolists({
-    todolists: [
-      { id: "1", title: "title 1", order: 0, addedDate: "" },
-      { id: "2", title: "title 2", order: 0, addedDate: "" },
-    ],
-  })
+  const action = todolistsThunks.setTodolists.fulfilled(
+    {
+      todolists: [
+        { id: "1", title: "title 1", order: 0, addedDate: "" },
+        { id: "2", title: "title 2", order: 0, addedDate: "" },
+      ],
+    },
+    "requestId",
+  )
 
   const endState = tasksReducer({}, action)
 

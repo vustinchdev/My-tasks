@@ -32,8 +32,8 @@ export const DeleteTodolist = () => {
 export const UpdateTodolistTitle = () => {
   const [state, setState] = useState<any>(null)
   useEffect(() => {
-    const todolistId = "3672c963-e08b-4568-88c3-59f47d1d6992"
-    todolistAPI.updateTodolist(todolistId, "Redux").then((res) => setState(res.data))
+    const id = "3672c963-e08b-4568-88c3-59f47d1d6992"
+    todolistAPI.updateTodolist({ id, title: "Redux" }).then((res) => setState(res.data))
   }, [])
 
   return <div>{JSON.stringify(state)}</div>

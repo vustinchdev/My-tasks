@@ -3,14 +3,7 @@ import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { TodoList } from "./Todolist/Todolist"
 import { tasksThunks } from "./tasksSlice"
-import {
-  setTodolistsTC,
-  removeTodolistTC,
-  changeTodolistTitleTC,
-  addTodolistTC,
-  FilterValuesType,
-  todolistsActions,
-} from "./todolistsSlice"
+import { FilterValuesType, todolistsActions, todolistsThunks } from "./todolistsSlice"
 import { Navigate } from "react-router-dom"
 import { TaskStatuses } from "api/todolist-api"
 import { useAppSelector, useAppDispatch } from "app/store"
@@ -33,7 +26,7 @@ export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => 
     if (demo || !isLoggedIn) {
       return
     }
-    dispatch(setTodolistsTC())
+    dispatch(todolistsThunks.setTodolists())
   }, [])
 
   const removeTask = useCallback(
@@ -73,21 +66,21 @@ export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => 
 
   const removeTodolist = useCallback(
     (todolistId: string) => {
-      dispatch(removeTodolistTC(todolistId))
+      dispatch(todolistsThunks.removeTodolist(todolistId))
     },
     [dispatch],
   )
 
   const changeTodolistTitle = useCallback(
-    (todolistId: string, title: string) => {
-      dispatch(changeTodolistTitleTC(todolistId, title))
+    (id: string, title: string) => {
+      dispatch(todolistsThunks.changeTodolistTitle({ id, title }))
     },
     [dispatch],
   )
 
   const addTodolist = useCallback(
     (title: string) => {
-      dispatch(addTodolistTC(title))
+      dispatch(todolistsThunks.addTodolist(title))
     },
     [dispatch],
   )

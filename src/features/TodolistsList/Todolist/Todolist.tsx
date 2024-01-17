@@ -1,4 +1,4 @@
-import { FC, memo, useCallback } from "react"
+import { FC, memo, useCallback, useEffect } from "react"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { Task } from "./Task/Task"
@@ -6,8 +6,9 @@ import { TaskStatuses } from "api/todolist-api"
 import { AddItemForm } from "components/AddItemForm/AddItemForm"
 import { ButtonWithMemo } from "components/ButtonWithMemo"
 import { EditableSpan } from "components/EditableSpan/EditableSpan"
-import { TaskDomainType } from "../tasksSlice"
+import { TaskDomainType, tasksThunks } from "../tasksSlice"
 import { TodolistDomainType, FilterValuesType } from "../todolistsSlice"
+import { useAppDispatch } from "app/store"
 
 type TodoLisPropsType = {
   todolist: TodolistDomainType
@@ -23,6 +24,12 @@ type TodoLisPropsType = {
 }
 
 export const TodoList: FC<TodoLisPropsType> = memo(({ demo = false, ...props }) => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(tasksThunks.setTasks(props.todolist.id))
+  }, [])
+
   const onAllClickHandler = useCallback(
     () => props.changeFilter(props.todolist.id, "all"),
     [props.changeFilter, props.todolist.id],
