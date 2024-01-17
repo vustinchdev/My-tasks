@@ -2,9 +2,8 @@ import React, { useCallback, useEffect } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { TodoList } from "./Todolist/Todolist"
-import { removeTaskTC, addTaskTC, updateTaskTC, TasksStateType } from "./tasksSlice"
+import { tasksThunks } from "./tasksSlice"
 import {
-  TodolistDomainType,
   setTodolistsTC,
   removeTodolistTC,
   changeTodolistTitleTC,
@@ -39,28 +38,28 @@ export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => 
 
   const removeTask = useCallback(
     (todolistId: string, taskId: string) => {
-      dispatch(removeTaskTC(todolistId, taskId))
+      dispatch(tasksThunks.removeTask({ todolistId, taskId }))
     },
     [dispatch],
   )
 
   const addTask = useCallback(
     (todolistId: string, title: string) => {
-      dispatch(addTaskTC(todolistId, title))
+      dispatch(tasksThunks.addTask({ todolistId, title }))
     },
     [dispatch],
   )
 
   const changeTaskTitle = useCallback(
     (todolistId: string, taskId: string, title: string) => {
-      dispatch(updateTaskTC(todolistId, taskId, { title }))
+      dispatch(tasksThunks.updateTask({ todolistId, taskId, domainModel: { title } }))
     },
     [dispatch],
   )
 
   const changeTaskStatus = useCallback(
     (todolistId: string, taskId: string, status: TaskStatuses) => {
-      dispatch(updateTaskTC(todolistId, taskId, { status }))
+      dispatch(tasksThunks.updateTask({ todolistId, taskId, domainModel: { status } }))
     },
     [dispatch],
   )

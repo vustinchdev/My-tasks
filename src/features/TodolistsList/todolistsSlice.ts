@@ -1,4 +1,4 @@
-import { ResultCode, setTasksTC } from "./tasksSlice"
+import { ResultCode, tasksThunks } from "./tasksSlice"
 import { TodolistType, todolistAPI } from "api/todolist-api"
 import { RequestStatusType, appActions } from "app/appSlice"
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
@@ -61,7 +61,7 @@ export const setTodolistsTC = (): AppThunk => (dispatch) => {
     })
     .then((todolists) => {
       todolists.forEach((tl) => {
-        dispatch(setTasksTC(tl.id))
+        dispatch(tasksThunks.setTasks(tl.id))
       })
     })
 }

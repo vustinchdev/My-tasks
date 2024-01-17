@@ -76,7 +76,7 @@ export const TodoList: FC<TodoLisPropsType> = memo(({ demo = false, ...props }) 
       </h3>
       <AddItemForm onClick={addTask} disabled={props.todolist.entityStatus === "loading"} />
       <ul>
-        {tasksForTodoList.map((t) => {
+        {tasksForTodoList?.map((t) => {
           return (
             <Task
               key={t.id}
