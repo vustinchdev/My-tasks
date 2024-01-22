@@ -3,12 +3,12 @@ import { Provider } from "react-redux"
 import { applyMiddleware, combineReducers, legacy_createStore } from "redux"
 import { v1 } from "uuid"
 import { thunk } from "redux-thunk"
-import { TaskStatuses, TaskPriorities } from "api/todolist-api"
 import { appReducer } from "app/appSlice"
 import { AppRootStateType } from "app/store"
-import { authReducer } from "features/Login/authSlice"
+import { authReducer } from "features/auth/authSlice"
 import { tasksReducer } from "features/TodolistsList/tasksSlice"
 import { todolistsReducer } from "features/TodolistsList/todolistsSlice"
+import { TaskStatuses, TaskPriorities } from "common/enums"
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,

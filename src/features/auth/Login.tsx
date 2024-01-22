@@ -10,9 +10,9 @@ import Button from "@mui/material/Button"
 import { useFormik } from "formik"
 import { loginTC } from "./authSlice"
 import { Navigate } from "react-router-dom"
-import { LoginParams } from "api/auth-api"
-import { useAppDispatch, useAppSelector } from "app/store"
+import { LoginParams } from "features/auth/auth-api"
 import { selectIsLoggedIn } from "./auth.selectors"
+import { useAppDispatch, useAppSelector } from "common/hooks"
 
 const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 

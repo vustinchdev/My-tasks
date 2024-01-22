@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { authAPI } from "api/auth-api"
-import { authActions } from "features/Login/authSlice"
-import { ResultCode } from "features/TodolistsList/tasksSlice"
+import { ResultCode } from "common/enums"
+import { handleServerAppError, handleServerNetworkError } from "common/utils"
+import { authAPI } from "features/auth/auth-api"
+import { authActions } from "features/auth/authSlice"
 import { Dispatch } from "redux"
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
 
 const slice = createSlice({
   name: "app",

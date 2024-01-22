@@ -2,17 +2,16 @@ import {
   TaskType,
   todolistAPI,
   UpdateTaskModelType,
-  TaskStatuses,
-  TaskPriorities,
   AddTaskArgs,
   RemoveTaskArgs,
-} from "api/todolist-api"
+} from "features/TodolistsList/todolist-api"
 import { RequestStatusType, appActions } from "app/appSlice"
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
-import { todolistsActions, todolistsThunks } from "./todolistsSlice"
+import { todolistsThunks } from "./todolistsSlice"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { clearTasksAndTodolists } from "common/actions/common.actions"
-import { createAppAsyncThunk } from "utils/createAppAsyncThunk"
+import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
+import { handleServerNetworkError, handleServerAppError } from "common/utils"
+import { ResultCode, TaskStatuses, TaskPriorities } from "common/enums"
 
 const slice = createSlice({
   name: "tasks",
@@ -177,11 +176,6 @@ export type UpdateDomainTaskModelType = {
 }
 export type TasksStateType = {
   [key: string]: TaskDomainType[]
-}
-export enum ResultCode {
-  SUCCEEDED = 0,
-  ERROR = 1,
-  ERROR_CAPTCHA = 10,
 }
 export type TaskDomainType = TaskType & {
   entityTaskStatus: RequestStatusType

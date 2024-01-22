@@ -1,4 +1,5 @@
-import { instance, ResponseType } from "./todolist-api"
+import { instance } from "common/api"
+import { ResponseType } from "common/types/common.types"
 
 export const authAPI = {
   login(params: LoginParams) {
@@ -17,7 +18,6 @@ export type LoginParams = {
   password: string
   rememberMe?: boolean
 }
-
 export type User = {
   login: string
   email: string

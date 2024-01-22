@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Task } from "./Task"
-import { TaskStatuses, TaskPriorities } from "api/todolist-api"
 import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator"
+import { TaskStatuses, TaskPriorities } from "common/enums"
 
 const meta = {
   title: "Todolists/Task",

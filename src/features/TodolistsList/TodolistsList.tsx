@@ -5,12 +5,12 @@ import { TodoList } from "./Todolist/Todolist"
 import { tasksThunks } from "./tasksSlice"
 import { FilterValuesType, todolistsActions, todolistsThunks } from "./todolistsSlice"
 import { Navigate } from "react-router-dom"
-import { TaskStatuses } from "api/todolist-api"
-import { useAppSelector, useAppDispatch } from "app/store"
-import { AddItemForm } from "components/AddItemForm/AddItemForm"
 import { selectTodolists } from "./todolists.selectors"
 import { selectTasks } from "./tasks.selectors"
-import { selectIsLoggedIn } from "features/Login/auth.selectors"
+import { selectIsLoggedIn } from "features/auth/auth.selectors"
+import { AddItemForm } from "common/components"
+import { TaskStatuses } from "common/enums"
+import { useAppSelector, useAppDispatch } from "common/hooks"
 
 type TodolistsListType = {
   demo?: boolean
