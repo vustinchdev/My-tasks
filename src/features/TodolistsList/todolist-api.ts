@@ -1,31 +1,33 @@
 import { instance } from "common/api"
 import { TaskStatuses, TaskPriorities } from "common/enums"
-import { ResponseType } from "common/types/common.types"
+import { BaseResponseType } from "common/types/common.types"
 
 export const todolistAPI = {
   getTodolists() {
     return instance.get<TodolistType[]>("todo-lists")
   },
   addTodolist(title: string) {
-    return instance.post<ResponseType<{ item: TodolistType }>>("todo-lists", { title })
+    return instance.post<BaseResponseType<{ item: TodolistType }>>("todo-lists", { title })
   },
   deleteTodolist(todolistId: string) {
-    return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
+    return instance.delete<BaseResponseType>(`todo-lists/${todolistId}`)
   },
   updateTodolist(arg: UpdateTodolistTitleArg) {
-    return instance.put<ResponseType>(`todo-lists/${arg.id}`, { title: arg.title })
+    return instance.put<BaseResponseType>(`todo-lists/${arg.id}`, { title: arg.title })
   },
   getTasks(todolistId: string) {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
   },
   addTask(arg: AddTaskArgs) {
-    return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${arg.todolistId}/tasks`, { title: arg.title })
+    return instance.post<BaseResponseType<{ item: TaskType }>>(`todo-lists/${arg.todolistId}/tasks`, {
+      title: arg.title,
+    })
   },
   deleteTask(arg: RemoveTaskArgs) {
-    return instance.delete<ResponseType>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
+    return instance.delete<BaseResponseType>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
   },
   updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-    return instance.put<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
+    return instance.put<BaseResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
   },
 }
 
