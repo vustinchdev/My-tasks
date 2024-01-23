@@ -13,6 +13,7 @@ import { LoginParams } from "features/auth/auth-api"
 import { selectIsLoggedIn } from "./auth.selectors"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { authThunks } from "./authSlice"
+import { BaseResponseType } from "common/types"
 
 const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 
@@ -20,15 +21,20 @@ export const Login = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
-  const { getFieldProps, resetForm, handleSubmit, touched, errors } = useFormik<LoginParams>({
+  const { getFieldProps, handleSubmit, touched, errors } = useFormik<LoginParams>({
     initialValues: {
       email: "",
       password: "",
       rememberMe: false,
     },
-    onSubmit: (values) => {
+    onSubmit: (values, formikHelpers) => {
       dispatch(authThunks.login(values))
-      resetForm()
+        .unwrap()
+        .catch((res: BaseResponseType) => {
+          res.fieldsErrors?.forEach((fieldError) => {
+            formikHelpers.setFieldError(fieldError.field, fieldError.error)
+          })
+        })
     },
     validate: (values: LoginParams) => {
       const errors: Partial<Omit<LoginParams, "rememberMe">> = {}

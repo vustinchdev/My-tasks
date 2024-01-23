@@ -1,6 +1,6 @@
 import { instance } from "common/api"
 import { TaskStatuses, TaskPriorities } from "common/enums"
-import { BaseResponseType } from "common/types/common.types"
+import { BaseResponseType } from "common/types"
 
 export const todolistAPI = {
   getTodolists() {

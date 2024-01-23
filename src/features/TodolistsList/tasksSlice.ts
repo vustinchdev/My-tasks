@@ -5,12 +5,12 @@ import {
   AddTaskArgs,
   RemoveTaskArgs,
 } from "features/TodolistsList/todolist-api"
-import { RequestStatusType, appActions } from "app/appSlice"
+import { RequestStatusType } from "app/appSlice"
 import { todolistsThunks } from "./todolistsSlice"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { clearTasksAndTodolists } from "common/actions/common.actions"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
-import { handleServerNetworkError, handleServerAppError } from "common/utils"
+import { handleServerAppError, thunkTryCatch } from "common/utils"
 import { ResultCode, TaskStatuses, TaskPriorities } from "common/enums"
 
 const slice = createSlice({
@@ -71,44 +71,32 @@ const slice = createSlice({
 const setTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskType[] }, string>(
   `${slice.name}/setTasks`,
   async (todolistId, thukAPI) => {
-    const { dispatch, rejectWithValue } = thukAPI
-    try {
-      dispatch(appActions.setStatus({ status: "loading" }))
+    return thunkTryCatch(thukAPI, async () => {
       const res = await todolistAPI.getTasks(todolistId)
-      dispatch(appActions.setStatus({ status: "succeeded" }))
       return { todolistId, tasks: res.data.items }
-    } catch (e) {
-      handleServerNetworkError(dispatch, e)
-      return rejectWithValue(null)
-    }
+    })
   },
 )
 const addTask = createAppAsyncThunk<{ todolistId: string; task: TaskType }, AddTaskArgs>(
   `${slice.name}/addTask`,
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
-    try {
-      dispatch(appActions.setStatus({ status: "loading" }))
+    return thunkTryCatch(thunkAPI, async () => {
       const res = await todolistAPI.addTask(arg)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        dispatch(appActions.setStatus({ status: "succeeded" }))
         return { todolistId: arg.todolistId, task: res.data.data.item }
       } else {
         handleServerAppError(dispatch, res.data)
         return rejectWithValue(null)
       }
-    } catch (e) {
-      handleServerNetworkError(dispatch, e)
-      return rejectWithValue(null)
-    }
+    })
   },
 )
 const updateTask = createAppAsyncThunk<ApdateTaskArg, ApdateTaskArg>(
   `${slice.name}/updateTask`,
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue, getState } = thunkAPI
-    try {
-      dispatch(appActions.setStatus({ status: "loading" }))
+    return thunkTryCatch(thunkAPI, async () => {
       const state = getState()
       const task = state.tasks[arg.todolistId].find((t) => t.id === arg.taskId)
       if (!task) {
@@ -126,24 +114,19 @@ const updateTask = createAppAsyncThunk<ApdateTaskArg, ApdateTaskArg>(
       }
       const res = await todolistAPI.updateTask(arg.todolistId, arg.taskId, apiModel)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        dispatch(appActions.setStatus({ status: "succeeded" }))
         return arg
       } else {
         handleServerAppError<{ item: TaskType }>(dispatch, res.data)
         return rejectWithValue(null)
       }
-    } catch (e) {
-      handleServerNetworkError(dispatch, e)
-      return rejectWithValue(null)
-    }
+    })
   },
 )
 const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>(
   `${slice.name}/removeTask`,
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
-    try {
-      dispatch(appActions.setStatus({ status: "loading" }))
+    return thunkTryCatch(thunkAPI, async () => {
       dispatch(
         tasksActions.changeEntityTaskStatus({
           todolistId: arg.todolistId,
@@ -153,16 +136,12 @@ const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>(
       )
       const res = await todolistAPI.deleteTask(arg)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        dispatch(appActions.setStatus({ status: "succeeded" }))
         return { todolistId: arg.todolistId, taskId: arg.taskId }
       } else {
         handleServerAppError(dispatch, res.data)
         return rejectWithValue(null)
       }
-    } catch (e) {
-      handleServerNetworkError(dispatch, e)
-      return rejectWithValue(null)
-    }
+    })
   },
 )
 
