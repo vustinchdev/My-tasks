@@ -9,6 +9,7 @@ import { authReducer } from "features/auth/authSlice"
 import { tasksReducer } from "features/TodolistsList/tasksSlice"
 import { todolistsReducer } from "features/TodolistsList/todolistsSlice"
 import { TaskStatuses, TaskPriorities } from "common/enums"
+import { HashRouter } from "react-router-dom"
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
@@ -111,5 +112,9 @@ export const storyBookStore = legacy_createStore(
 )
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
-  return <Provider store={storyBookStore}>{storyFn()}</Provider>
+  return (
+    <Provider store={storyBookStore}>
+      <HashRouter>{storyFn()}</HashRouter>
+    </Provider>
+  )
 }

@@ -4,11 +4,11 @@ import { TodolistsList } from "../features/TodolistsList/TodolistsList"
 import { Routes, Route, Navigate } from "react-router-dom"
 import { Login } from "../features/auth/Login"
 import { useEffect } from "react"
-import { initializeAppTC } from "./appSlice"
 import CircularProgress from "@mui/material/CircularProgress"
 import { selectIsInitialized } from "./app.selectors"
 import { ErrorSnackbar, ButtonAppBar } from "common/components"
 import { useAppDispatch, useAppSelector } from "common/hooks"
+import { authThunks } from "features/auth/authSlice"
 
 type PropsType = {
   demo?: boolean
@@ -19,7 +19,7 @@ function App({ demo = false }: PropsType) {
   const isInitialized = useAppSelector(selectIsInitialized)
 
   useEffect(() => {
-    dispatch(initializeAppTC())
+    dispatch(authThunks.initializeApp())
   }, [])
 
   if (!isInitialized) {
