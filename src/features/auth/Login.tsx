@@ -13,7 +13,9 @@ import { LoginParams } from "features/auth/auth-api"
 import { selectIsLoggedIn } from "./auth.selectors"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { authThunks } from "./authSlice"
-import { BaseResponseType } from "common/types"
+import { BaseResponse } from "common/types"
+
+type FormikError = Partial<Omit<LoginParams, "captcha">>
 
 const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 
@@ -30,14 +32,14 @@ export const Login = () => {
     onSubmit: (values, formikHelpers) => {
       dispatch(authThunks.login(values))
         .unwrap()
-        .catch((res: BaseResponseType) => {
+        .catch((res: BaseResponse) => {
           res.fieldsErrors?.forEach((fieldError) => {
             formikHelpers.setFieldError(fieldError.field, fieldError.error)
           })
         })
     },
     validate: (values: LoginParams) => {
-      const errors: Partial<Omit<LoginParams, "rememberMe">> = {}
+      const errors: FormikError = {}
       if (!values.email) {
         errors.email = "Required"
       } else if (!EMAIL_REGEXP.test(values.email)) {

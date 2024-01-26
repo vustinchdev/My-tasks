@@ -1,17 +1,11 @@
-import { RequestStatusType } from "app/appSlice"
-import {
-  FilterValuesType,
-  TodolistDomainType,
-  todolistsActions,
-  todolistsReducer,
-  todolistsThunks,
-} from "./todolistsSlice"
+import { RequestStatus } from "app/appSlice"
+import { FilterValues, TodolistDomain, todolistsActions, todolistsReducer, todolistsThunks } from "./todolistsSlice"
 import { v1 } from "uuid"
 
 let todolistId1: string
 let todolistId2: string
 
-let startState: TodolistDomainType[]
+let startState: TodolistDomain[]
 
 beforeEach(() => {
   todolistId1 = v1()
@@ -79,7 +73,7 @@ test("correct todolist should change its name", () => {
 })
 
 test("correct filter of todolist should be changed", () => {
-  let newFilter: FilterValuesType = "completed"
+  let newFilter: FilterValues = "completed"
 
   const endState = todolistsReducer(
     startState,
@@ -99,7 +93,7 @@ test("todolists should be added", () => {
 })
 
 test("correct entity status of todolist should be changed", () => {
-  let newStatus: RequestStatusType = "loading"
+  let newStatus: RequestStatus = "loading"
 
   const endState = todolistsReducer(
     startState,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { UpdateTaskModelType, todolistAPI } from "../TodolistsList/todolist-api"
+import { UpdateTaskModel, todolistAPI } from "../TodolistsList/todolist-api"
 
 export default {
   title: "API",
@@ -75,7 +75,7 @@ export const UpdateTask = () => {
   useEffect(() => {
     const todolistId = "fa367149-7782-46a5-98a6-f274643632b7"
     const taskId = "936dacf3-4627-4ac2-aee6-90d620e4d15c"
-    const model: UpdateTaskModelType = {
+    const model: UpdateTaskModel = {
       title: "Redux",
       description: "",
       status: 0,

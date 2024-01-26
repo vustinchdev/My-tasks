@@ -1,43 +1,43 @@
 import { instance } from "common/api"
 import { TaskStatuses, TaskPriorities } from "common/enums"
-import { BaseResponseType } from "common/types"
+import { BaseResponse } from "common/types"
 
 export const todolistAPI = {
   getTodolists() {
-    return instance.get<TodolistType[]>("todo-lists")
+    return instance.get<Todolist[]>("todo-lists")
   },
   addTodolist(title: string) {
-    return instance.post<BaseResponseType<{ item: TodolistType }>>("todo-lists", { title })
+    return instance.post<BaseResponse<{ item: Todolist }>>("todo-lists", { title })
   },
   deleteTodolist(todolistId: string) {
-    return instance.delete<BaseResponseType>(`todo-lists/${todolistId}`)
+    return instance.delete<BaseResponse>(`todo-lists/${todolistId}`)
   },
   updateTodolist(arg: UpdateTodolistTitleArg) {
-    return instance.put<BaseResponseType>(`todo-lists/${arg.id}`, { title: arg.title })
+    return instance.put<BaseResponse>(`todo-lists/${arg.id}`, { title: arg.title })
   },
   getTasks(todolistId: string) {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
   },
   addTask(arg: AddTaskArgs) {
-    return instance.post<BaseResponseType<{ item: TaskType }>>(`todo-lists/${arg.todolistId}/tasks`, {
+    return instance.post<BaseResponse<{ item: Task }>>(`todo-lists/${arg.todolistId}/tasks`, {
       title: arg.title,
     })
   },
   deleteTask(arg: RemoveTaskArgs) {
-    return instance.delete<BaseResponseType>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
+    return instance.delete<BaseResponse>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
   },
-  updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-    return instance.put<BaseResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
+  updateTask(todolistId: string, taskId: string, model: UpdateTaskModel) {
+    return instance.put<BaseResponse<{ item: Task }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
   },
 }
 
-export type TodolistType = {
+export type Todolist = {
   id: string
   title: string
   addedDate: string
   order: number
 }
-export type TaskType = {
+export type Task = {
   description: string
   title: string
   status: TaskStatuses
@@ -50,11 +50,11 @@ export type TaskType = {
   addedDate: string
 }
 type GetTasksResponse = {
-  items: TaskType[]
+  items: Task[]
   totalCount: number
   error: string | null
 }
-export type UpdateTaskModelType = {
+export type UpdateTaskModel = {
   title: string
   description: string
   status: TaskStatuses

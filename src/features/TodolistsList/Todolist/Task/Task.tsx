@@ -2,12 +2,12 @@ import React, { memo, ChangeEvent, useCallback } from "react"
 import BackspaceIcon from "@mui/icons-material/Backspace"
 import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
-import { TaskDomainType } from "features/TodolistsList/tasksSlice"
+import { TaskDomain } from "features/TodolistsList/tasksSlice"
 import { EditableSpan } from "common/components"
 import { TaskStatuses } from "common/enums"
 
 type TaskPropsType = {
-  task: TaskDomainType
+  task: TaskDomain
   todolistId: string
   changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
   changeTaskTitle: (todolistId: string, taskId: string, title: string) => void

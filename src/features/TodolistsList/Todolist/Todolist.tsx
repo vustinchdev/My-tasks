@@ -2,18 +2,18 @@ import { FC, memo, useCallback, useEffect } from "react"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { Task } from "./Task/Task"
-import { TaskDomainType, tasksThunks } from "../tasksSlice"
-import { TodolistDomainType, FilterValuesType } from "../todolistsSlice"
+import { TaskDomain, tasksThunks } from "../tasksSlice"
+import { TodolistDomain, FilterValues } from "../todolistsSlice"
 import { EditableSpan, AddItemForm, ButtonWithMemo } from "common/components"
 import { TaskStatuses } from "common/enums"
 import { useAppDispatch } from "common/hooks"
 
 type TodoLisPropsType = {
-  todolist: TodolistDomainType
+  todolist: TodolistDomain
   demo?: boolean
-  tasks: TaskDomainType[]
+  tasks: TaskDomain[]
   removeTask: (todolistId: string, taskId: string) => void
-  changeFilter: (todolistId: string, value: FilterValuesType) => void
+  changeFilter: (todolistId: string, value: FilterValues) => void
   addTask: (todolistId: string, title: string) => void
   changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
   removeTodolist: (todolistId: string) => void

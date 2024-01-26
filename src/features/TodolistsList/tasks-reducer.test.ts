@@ -1,9 +1,9 @@
-import { RequestStatusType } from "app/appSlice"
-import { TasksStateType, tasksActions, tasksReducer, tasksThunks } from "./tasksSlice"
+import { RequestStatus } from "app/appSlice"
+import { TasksState, tasksActions, tasksReducer, tasksThunks } from "./tasksSlice"
 import { todolistsThunks } from "./todolistsSlice"
 import { TaskStatuses, TaskPriorities } from "common/enums"
 
-let startState: TasksStateType
+let startState: TasksState
 
 beforeEach(() => {
   startState = {
@@ -219,7 +219,7 @@ test("tasks should be added for todolist", () => {
 })
 
 test("correct entity status of todolist should be changed", () => {
-  let newTaskStatus: RequestStatusType = "loading"
+  let newTaskStatus: RequestStatus = "loading"
 
   const endState = tasksReducer(
     startState,

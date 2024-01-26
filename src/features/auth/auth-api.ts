@@ -1,22 +1,23 @@
 import { instance } from "common/api"
-import { BaseResponseType } from "common/types"
+import { BaseResponse } from "common/types"
 
 export const authAPI = {
   login(params: LoginParams) {
-    return instance.post<BaseResponseType<{ userId: number }>>("auth/login", params)
+    return instance.post<BaseResponse<{ userId: number }>>("auth/login", params)
   },
   me() {
-    return instance.get<BaseResponseType<User>>("auth/me")
+    return instance.get<BaseResponse<User>>("auth/me")
   },
   logout() {
-    return instance.delete<BaseResponseType>("auth/login")
+    return instance.delete<BaseResponse>("auth/login")
   },
 }
 
 export type LoginParams = {
   email: string
   password: string
-  rememberMe?: boolean
+  rememberMe: boolean
+  captcha?: string
 }
 export type User = {
   login: string

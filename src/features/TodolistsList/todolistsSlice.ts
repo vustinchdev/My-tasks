@@ -1,5 +1,5 @@
-import { TodolistType, UpdateTodolistTitleArg, todolistAPI } from "features/TodolistsList/todolist-api"
-import { RequestStatusType, appActions } from "app/appSlice"
+import { Todolist, UpdateTodolistTitleArg, todolistAPI } from "features/TodolistsList/todolist-api"
+import { RequestStatus } from "app/appSlice"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { clearTasksAndTodolists } from "common/actions/common.actions"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
@@ -8,15 +8,15 @@ import { ResultCode } from "common/enums"
 
 const slice = createSlice({
   name: "todolists",
-  initialState: [] as TodolistDomainType[],
+  initialState: [] as TodolistDomain[],
   reducers: {
-    changeTodolistFilter: (state, action: PayloadAction<{ id: string; filter: FilterValuesType }>) => {
+    changeTodolistFilter: (state, action: PayloadAction<{ id: string; filter: FilterValues }>) => {
       const todolist = state.find((todo) => todo.id === action.payload.id)
       if (todolist) {
         todolist.filter = action.payload.filter
       }
     },
-    changeTodolistEntityStatus: (state, action: PayloadAction<{ id: string; entityStatus: RequestStatusType }>) => {
+    changeTodolistEntityStatus: (state, action: PayloadAction<{ id: string; entityStatus: RequestStatus }>) => {
       const todolist = state.find((todo) => todo.id === action.payload.id)
       if (todolist) {
         todolist.entityStatus = action.payload.entityStatus
@@ -51,7 +51,7 @@ const slice = createSlice({
   },
 })
 
-const setTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
+const setTodolists = createAppAsyncThunk<{ todolists: Todolist[] }, void>(
   `${slice.name}/setTodolists`,
   async (_, thunkAPI) => {
     return thunkTryCatch(thunkAPI, async () => {
@@ -60,7 +60,7 @@ const setTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
     })
   },
 )
-const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
+const addTodolist = createAppAsyncThunk<{ todolist: Todolist }, string>(
   `${slice.name}/addTodolist`,
   async (title, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
@@ -107,11 +107,11 @@ const changeTodolistTitle = createAppAsyncThunk<UpdateTodolistTitleArg, UpdateTo
   },
 )
 
-export type TodolistDomainType = TodolistType & {
-  filter: FilterValuesType
-  entityStatus: RequestStatusType
+export type TodolistDomain = Todolist & {
+  filter: FilterValues
+  entityStatus: RequestStatus
 }
-export type FilterValuesType = "all" | "completed" | "active"
+export type FilterValues = "all" | "completed" | "active"
 
 export const todolistsActions = slice.actions
 export const todolistsReducer = slice.reducer

@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { TodoList } from "./Todolist/Todolist"
 import { tasksThunks } from "./tasksSlice"
-import { FilterValuesType, todolistsActions, todolistsThunks } from "./todolistsSlice"
+import { FilterValues, todolistsActions, todolistsThunks } from "./todolistsSlice"
 import { Navigate } from "react-router-dom"
 import { selectTodolists } from "./todolists.selectors"
 import { selectTasks } from "./tasks.selectors"
@@ -58,7 +58,7 @@ export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => 
   )
 
   const changeFilter = useCallback(
-    (id: string, filter: FilterValuesType) => {
+    (id: string, filter: FilterValues) => {
       dispatch(todolistsActions.changeTodolistFilter({ id, filter }))
     },
     [dispatch],
