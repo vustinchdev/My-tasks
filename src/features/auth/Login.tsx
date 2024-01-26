@@ -1,4 +1,3 @@
-import React from "react"
 import Grid from "@mui/material/Grid"
 import Checkbox from "@mui/material/Checkbox"
 import FormControl from "@mui/material/FormControl"
@@ -7,52 +6,11 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import { useFormik } from "formik"
 import { Navigate } from "react-router-dom"
-import { LoginParams } from "features/auth/auth-api"
-import { selectIsLoggedIn } from "./auth.selectors"
-import { useAppDispatch, useAppSelector } from "common/hooks"
-import { authThunks } from "./authSlice"
-import { BaseResponse } from "common/types"
-
-type FormikError = Partial<Omit<LoginParams, "captcha">>
-
-const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+import { useLogin } from "./useLogin"
 
 export const Login = () => {
-  const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(selectIsLoggedIn)
-
-  const { getFieldProps, handleSubmit, touched, errors } = useFormik<LoginParams>({
-    initialValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-    },
-    onSubmit: (values, formikHelpers) => {
-      dispatch(authThunks.login(values))
-        .unwrap()
-        .catch((res: BaseResponse) => {
-          res.fieldsErrors?.forEach((fieldError) => {
-            formikHelpers.setFieldError(fieldError.field, fieldError.error)
-          })
-        })
-    },
-    validate: (values: LoginParams) => {
-      const errors: FormikError = {}
-      if (!values.email) {
-        errors.email = "Required"
-      } else if (!EMAIL_REGEXP.test(values.email)) {
-        errors.email = "Invalid email address"
-      }
-      if (!values.password) {
-        errors.password = "Required"
-      } else if (values.password.length < 3) {
-        errors.password = "Password should be 3 or more characters longs"
-      }
-      return errors
-    },
-  })
+  const { isLoggedIn, errors, getFieldProps, handleSubmit, touched } = useLogin()
 
   if (isLoggedIn) {
     return <Navigate to="/" />
