@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { BaseResponse } from "common/types"
 import { useFormik } from "formik"
-import { LoginParams } from "./auth-api"
-import { selectIsLoggedIn } from "./auth.selectors"
-import { authThunks } from "./authSlice"
+import { selectIsLoggedIn } from "../model/authSelectors"
+import { authThunks } from "../model/authSlice"
+import { LoginParams } from "../api/authApi.types"
 
 type FormikError = Partial<Omit<LoginParams, "captcha">>
 

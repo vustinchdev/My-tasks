@@ -1,8 +1,8 @@
 import { ThunkDispatch } from "redux-thunk"
 import { appReducer } from "./appSlice"
-import { authReducer } from "features/auth/authSlice"
-import { tasksReducer } from "features/TodolistsList/tasksSlice"
-import { todolistsReducer } from "features/TodolistsList/todolistsSlice"
+import { authReducer } from "features/auth/model/authSlice"
+import { tasksReducer } from "features/TodolistsList/model/tasks/tasksSlice"
+import { todolistsReducer } from "features/TodolistsList/model/todolists/todolistsSlice"
 import { UnknownAction, configureStore } from "@reduxjs/toolkit"
 
 export const store = configureStore({

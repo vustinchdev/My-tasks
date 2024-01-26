@@ -1,6 +1,6 @@
 import { RequestStatus } from "app/appSlice"
-import { TasksState, tasksActions, tasksReducer, tasksThunks } from "./tasksSlice"
-import { todolistsThunks } from "./todolistsSlice"
+import { TasksState, tasksActions, tasksReducer, tasksThunks } from "../tasksSlice"
+import { todolistsThunks } from "../../todolists/todolistsSlice"
 import { TaskStatuses, TaskPriorities } from "common/enums"
 
 let startState: TasksState

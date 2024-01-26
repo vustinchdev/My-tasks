@@ -7,10 +7,10 @@ import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import LinearProgress from "@mui/material/LinearProgress"
-import { selectStatus } from "app/app.selectors"
-import { selectIsLoggedIn } from "features/auth/auth.selectors"
+import { selectStatus } from "app/appSelectors"
+import { selectIsLoggedIn } from "features/auth/model/authSelectors"
 import { useAppDispatch, useAppSelector } from "common/hooks"
-import { authThunks } from "features/auth/authSlice"
+import { authThunks } from "features/auth/model/authSlice"
 
 export function ButtonAppBar() {
   const dispatch = useAppDispatch()

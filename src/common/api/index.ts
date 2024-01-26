@@ -1,1 +1,1 @@
-export { instance } from "./comon.api"
+export { instance } from "./comonApi"

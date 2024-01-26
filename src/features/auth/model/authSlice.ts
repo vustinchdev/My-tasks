@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { LoginParams, authAPI } from "features/auth/auth-api"
 import { appActions } from "app/appSlice"
-import { clearTasksAndTodolists } from "common/actions/common.actions"
+import { clearTasksAndTodolists } from "common/actions/commonActions"
 import { ResultCode } from "common/enums"
 import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from "common/utils"
+import { authAPI } from "../api/authApi"
+import { LoginParams } from "../api/authApi.types"
 
 const slice = createSlice({
   name: "auth",

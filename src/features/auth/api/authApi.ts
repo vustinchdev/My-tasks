@@ -1,5 +1,6 @@
 import { instance } from "common/api"
 import { BaseResponse } from "common/types"
+import { LoginParams, User } from "./authApi.types"
 
 export const authAPI = {
   login(params: LoginParams) {
@@ -11,16 +12,4 @@ export const authAPI = {
   logout() {
     return instance.delete<BaseResponse>("auth/login")
   },
-}
-
-export type LoginParams = {
-  email: string
-  password: string
-  rememberMe: boolean
-  captcha?: string
-}
-export type User = {
-  login: string
-  email: string
-  id: number
 }

@@ -2,7 +2,7 @@ import React, { memo, ChangeEvent, useCallback } from "react"
 import BackspaceIcon from "@mui/icons-material/Backspace"
 import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
-import { TaskDomain } from "features/TodolistsList/tasksSlice"
+import { TaskDomain } from "features/TodolistsList/model/tasks/tasksSlice"
 import { EditableSpan } from "common/components"
 import { TaskStatuses } from "common/enums"
 

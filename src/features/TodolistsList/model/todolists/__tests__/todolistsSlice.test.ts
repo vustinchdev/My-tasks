@@ -1,6 +1,6 @@
 import { RequestStatus } from "app/appSlice"
-import { FilterValues, TodolistDomain, todolistsActions, todolistsReducer, todolistsThunks } from "./todolistsSlice"
 import { v1 } from "uuid"
+import { TodolistDomain, todolistsReducer, todolistsThunks, FilterValues, todolistsActions } from "../todolistsSlice"
 
 let todolistId1: string
 let todolistId2: string

@@ -1,10 +1,11 @@
-import { Todolist, UpdateTodolistTitleArg, todolistAPI } from "features/TodolistsList/todolist-api"
 import { RequestStatus } from "app/appSlice"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { clearTasksAndTodolists } from "common/actions/common.actions"
+import { clearTasksAndTodolists } from "common/actions/commonActions"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
 import { handleServerAppError, thunkTryCatch } from "common/utils"
 import { ResultCode } from "common/enums"
+import { todolistAPI } from "features/TodolistsList/api/todolists/todolistsApi"
+import { Todolist, UpdateTodolistTitleArg } from "features/TodolistsList/api/todolists/todolistsApi.types"
 
 const slice = createSlice({
   name: "todolists",

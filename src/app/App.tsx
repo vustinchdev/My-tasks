@@ -1,14 +1,14 @@
 import "./App.css"
 import Container from "@mui/material/Container"
-import { TodolistsList } from "../features/TodolistsList/TodolistsList"
+import { TodolistsList } from "../features/TodolistsList/ui/TodolistsList"
 import { Routes, Route, Navigate } from "react-router-dom"
-import { Login } from "../features/auth/Login"
+import { Login } from "../features/auth/ui/Login"
 import { useEffect } from "react"
 import CircularProgress from "@mui/material/CircularProgress"
-import { selectIsInitialized } from "./app.selectors"
+import { selectIsInitialized } from "./appSelectors"
 import { ErrorSnackbar, ButtonAppBar } from "common/components"
 import { useAppDispatch, useAppSelector } from "common/hooks"
-import { authThunks } from "features/auth/authSlice"
+import { authThunks } from "features/auth/model/authSlice"
 
 type PropsType = {
   demo?: boolean
