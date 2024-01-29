@@ -9,13 +9,13 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    onClick: {
+    onChange: {
       description: "Clicked change span",
       action: "clicked",
     },
   },
   args: {
-    title: "JS",
+    titleValue: "JS",
   },
 } satisfies Meta<typeof EditableSpan>
 

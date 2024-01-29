@@ -1,22 +1,20 @@
-import React, { useCallback, useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
-import { TodoList } from "../Todolist/Todolist"
-import { tasksThunks } from "../model/tasks/tasksSlice"
-import { FilterValues, todolistsActions, todolistsThunks } from "../model/todolists/todolistsSlice"
+import { todolistsThunks } from "../model/todolists/todolistsSlice"
 import { Navigate } from "react-router-dom"
 import { selectTodolists } from "../model/todolists/todolistsSelectors"
 import { selectTasks } from "../model/tasks/tasksSelectors"
 import { selectIsLoggedIn } from "features/auth/model/authSelectors"
 import { AddItemForm } from "common/components"
-import { TaskStatuses } from "common/enums"
 import { useAppSelector, useAppDispatch } from "common/hooks"
+import { TodoList } from "./Todolist/Todolist"
 
-type TodolistsListType = {
+type Props = {
   demo?: boolean
 }
 
-export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => {
+export const TodolistsList = ({ demo = false }: Props) => {
   const todolists = useAppSelector(selectTodolists)
   const tasks = useAppSelector(selectTasks)
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -29,58 +27,9 @@ export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => 
     dispatch(todolistsThunks.setTodolists())
   }, [])
 
-  const removeTask = useCallback(
-    (todolistId: string, taskId: string) => {
-      dispatch(tasksThunks.removeTask({ todolistId, taskId }))
-    },
-    [dispatch],
-  )
-
-  const addTask = useCallback(
-    (todolistId: string, title: string) => {
-      dispatch(tasksThunks.addTask({ todolistId, title }))
-    },
-    [dispatch],
-  )
-
-  const changeTaskTitle = useCallback(
-    (todolistId: string, taskId: string, title: string) => {
-      dispatch(tasksThunks.updateTask({ todolistId, taskId, domainModel: { title } }))
-    },
-    [dispatch],
-  )
-
-  const changeTaskStatus = useCallback(
-    (todolistId: string, taskId: string, status: TaskStatuses) => {
-      dispatch(tasksThunks.updateTask({ todolistId, taskId, domainModel: { status } }))
-    },
-    [dispatch],
-  )
-
-  const changeFilter = useCallback(
-    (id: string, filter: FilterValues) => {
-      dispatch(todolistsActions.changeTodolistFilter({ id, filter }))
-    },
-    [dispatch],
-  )
-
-  const removeTodolist = useCallback(
-    (todolistId: string) => {
-      dispatch(todolistsThunks.removeTodolist(todolistId))
-    },
-    [dispatch],
-  )
-
-  const changeTodolistTitle = useCallback(
-    (id: string, title: string) => {
-      dispatch(todolistsThunks.changeTodolistTitle({ id, title }))
-    },
-    [dispatch],
-  )
-
   const addTodolist = useCallback(
     (title: string) => {
-      dispatch(todolistsThunks.addTodolist(title))
+      return dispatch(todolistsThunks.addTodolist(title)).unwrap()
     },
     [dispatch],
   )
@@ -92,7 +41,7 @@ export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => 
   return (
     <>
       <Grid container style={{ margin: "20px" }}>
-        <AddItemForm onClick={addTodolist} />
+        <AddItemForm addItem={addTodolist} />
       </Grid>
 
       <Grid container spacing={3}>
@@ -100,19 +49,7 @@ export const TodolistsList: React.FC<TodolistsListType> = ({ demo = false }) => 
           return (
             <Grid key={tl.id} item>
               <Paper elevation={3} style={{ padding: "15px" }}>
-                <TodoList
-                  key={tl.id}
-                  demo={demo}
-                  todolist={tl}
-                  tasks={tasks[tl.id]}
-                  removeTask={removeTask}
-                  changeFilter={changeFilter}
-                  addTask={addTask}
-                  changeTaskStatus={changeTaskStatus}
-                  removeTodolist={removeTodolist}
-                  changeTaskTitle={changeTaskTitle}
-                  changeTodolistTitle={changeTodolistTitle}
-                />
+                <TodoList key={tl.id} demo={demo} todolist={tl} tasks={tasks[tl.id]} />
               </Paper>
             </Grid>
           )

@@ -1,24 +1,24 @@
-import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
+import { ChangeEvent, KeyboardEvent, memo, useState } from "react"
 import TextField from "@mui/material/TextField"
 
-type EditableSpanPropsType = {
-  title: string
+type Props = {
+  titleValue: string
   disabled?: boolean
-  onClick: (title: string) => void
+  onChange: (title: string) => void
 }
 
-export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
+export const EditableSpan = memo(({ titleValue, disabled = false, onChange }: Props) => {
   const [editMode, setEditMode] = useState(false)
   const [title, setTitle] = useState("")
 
   const editHandler = () => {
-    if (props.disabled) {
+    if (disabled) {
       return
     }
     setEditMode(!editMode)
-    setTitle(props.title)
+    setTitle(titleValue)
     if (editMode) {
-      props.onClick(title)
+      onChange(title)
     }
   }
 
@@ -43,6 +43,6 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = memo((props) => {
       autoFocus
     />
   ) : (
-    <span onDoubleClick={editHandler}>{props.title}</span>
+    <span onDoubleClick={editHandler}>{titleValue}</span>
   )
 })

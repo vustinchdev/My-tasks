@@ -1,22 +1,30 @@
-import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
+import { ChangeEvent, KeyboardEvent, memo, useState } from "react"
 import TextField from "@mui/material/TextField"
 import AddBoxIcon from "@mui/icons-material/AddBox"
 import IconButton from "@mui/material/IconButton"
+import { BaseResponse } from "common/types"
 
-export type AddItemFormPropsType = {
-  onClick: (newTitle: string) => void
+type Props = {
+  addItem: (newTitle: string) => Promise<any>
   disabled?: boolean
 }
 
-export const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
+export const AddItemForm = memo(({ addItem, disabled = false }: Props) => {
   const [title, setTitle] = useState("")
   const [error, setError] = useState<string | null>(null)
 
-  const addItem = () => {
+  const addItemHandler = () => {
     let newTitle = title.trim()
     if (newTitle !== "") {
-      props.onClick(newTitle)
-      setTitle("")
+      addItem(newTitle)
+        .then((res) => {
+          setTitle("")
+        })
+        .catch((e: BaseResponse) => {
+          if (e?.resultCode) {
+            setError(e.messages[0])
+          }
+        })
     } else {
       setError("Title is required")
     }
@@ -31,7 +39,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
       setError(null)
     }
     if (e.key === "Enter") {
-      addItem()
+      addItemHandler()
     }
   }
 
@@ -40,15 +48,16 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo((props) => {
       <TextField
         error={!!error}
         id="outlined-basic"
-        label={error ? error : "type smth..."}
+        label={error ? "Title" : "type smth..."}
         variant="outlined"
         size="small"
         value={title}
-        disabled={props.disabled}
+        disabled={disabled}
+        helperText={error}
         onChange={onNewTitleChangeHandler}
         onKeyDown={onKeyDownHandler}
       />
-      <IconButton onClick={addItem} disabled={props.disabled}>
+      <IconButton onClick={addItemHandler} disabled={disabled}>
         <AddBoxIcon style={{ color: "#2e7d32", width: "30px" }} />
       </IconButton>
     </div>

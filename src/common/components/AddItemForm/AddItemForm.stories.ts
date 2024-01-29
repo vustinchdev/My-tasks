@@ -9,7 +9,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    onClick: {
+    addItem: {
       description: "Button clicked inside form",
       action: "clicked",
     },
@@ -19,4 +19,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const AddItemFormStory: Story = {}
+export const AddItemFormStory: Story = {
+  args: {
+    addItem: async (newTitle: string) => {},
+  },
+}

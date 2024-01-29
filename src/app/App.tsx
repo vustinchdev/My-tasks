@@ -1,4 +1,3 @@
-import "./App.css"
 import Container from "@mui/material/Container"
 import { TodolistsList } from "../features/TodolistsList/ui/TodolistsList"
 import { Routes, Route, Navigate } from "react-router-dom"
@@ -10,11 +9,11 @@ import { ErrorSnackbar, ButtonAppBar } from "common/components"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { authThunks } from "features/auth/model/authSlice"
 
-type PropsType = {
+type Props = {
   demo?: boolean
 }
 
-function App({ demo = false }: PropsType) {
+function App({ demo = false }: Props) {
   const dispatch = useAppDispatch()
   const isInitialized = useAppSelector(selectIsInitialized)
 
