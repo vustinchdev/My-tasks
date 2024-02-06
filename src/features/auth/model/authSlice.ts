@@ -13,22 +13,12 @@ const slice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
+    builder.addMatcher(
+      isFulfilled(authThunks.login, authThunks.logout, authThunks.initializeApp),
+      (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
         state.isLoggedIn = action.payload.isLoggedIn
-      })
-      .addCase(logout.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn
-      })
-      .addCase(initializeApp.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn
-      })
-      .addMatcher(
-        isFulfilled(authThunks.login, authThunks.logout, authThunks.initializeApp),
-        (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
-          state.isLoggedIn = action.payload.isLoggedIn
-        },
-      )
+      },
+    )
   },
 })
 
