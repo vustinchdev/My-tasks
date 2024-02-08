@@ -61,3 +61,4 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
 
 export const authReducer = slice.reducer
 export const authThunks = { login, logout, initializeApp }
+export type AuthState = ReturnType<typeof slice.getInitialState>
