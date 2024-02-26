@@ -20,7 +20,7 @@ export const Tasks = ({ todolist, tasks }: Props) => {
   return (
     <ul>
       {tasksForTodoList?.map((t) => {
-        return <Task key={t.id} task={t} todolistId={todolist.id} />
+        return <Task key={t.id} task={t} todolistId={todolist.id} disabled={t.entityTaskStatus === "loading"} />
       })}
     </ul>
   )

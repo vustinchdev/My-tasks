@@ -80,7 +80,7 @@ const addTask = createAppAsyncThunk<{ todolistId: string; task: Task }, AddTaskA
     }
   },
 )
-const updateTask = createAppAsyncThunk<ApdateTaskArg, ApdateTaskArg>(
+const updateTask = createAppAsyncThunk<UpdateTaskArg, UpdateTaskArg>(
   `${slice.name}/updateTask`,
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue, getState } = thunkAPI
@@ -139,7 +139,7 @@ export type TasksState = Record<string, TaskDomain[]>
 export type TaskDomain = Task & {
   entityTaskStatus: RequestStatus
 }
-type ApdateTaskArg = {
+type UpdateTaskArg = {
   todolistId: string
   taskId: string
   domainModel: UpdateDomainTaskModel

@@ -24,6 +24,7 @@ const meta = {
       todoListId: "todolistId1",
       entityTaskStatus: "idle",
     },
+    disabled: false,
     todolistId: "todolistId1",
   },
   decorators: [ReduxStoreProviderDecorator],

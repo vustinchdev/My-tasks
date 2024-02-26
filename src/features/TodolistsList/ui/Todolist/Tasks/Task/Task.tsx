@@ -11,9 +11,10 @@ import s from "./Task.module.css"
 type Props = {
   task: TaskDomain
   todolistId: string
+  disabled: boolean
 }
 
-export const Task = memo(({ task, todolistId }: Props) => {
+export const Task = memo(({ task, todolistId, disabled }: Props) => {
   const dispatch = useAppDispatch()
 
   const removeTaskHandler = () => dispatch(tasksThunks.removeTask({ todolistId, taskId: task.id }))
@@ -30,16 +31,12 @@ export const Task = memo(({ task, todolistId }: Props) => {
       <Checkbox
         style={task.status === TaskStatuses.Completed ? { color: "#d32f2f" } : { color: "#1976d2" }}
         checked={task.status === TaskStatuses.Completed}
-        disabled={task.entityTaskStatus === "loading"}
+        disabled={disabled}
         onChange={changeTaskStatusHandler}
       />
 
-      <EditableSpan
-        titleValue={task.title}
-        onChange={changeTaskTitleHandler}
-        disabled={task.entityTaskStatus === "loading"}
-      />
-      <IconButton aria-label="delete" disabled={task.entityTaskStatus === "loading"} onClick={removeTaskHandler}>
+      <EditableSpan titleValue={task.title} onChange={changeTaskTitleHandler} disabled={disabled} />
+      <IconButton aria-label="delete" disabled={disabled} onClick={removeTaskHandler}>
         <BackspaceIcon />
       </IconButton>
     </li>
