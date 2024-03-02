@@ -1,0 +1,10 @@
+.appBar {
+    background: repeating-linear-gradient(
+      180deg,
+      #4d3134,
+      #722f37 20px,
+      #6a2c2b 30px,
+      #341e1d 60px
+    );
+    margin-bottom: 30px;
+  }
