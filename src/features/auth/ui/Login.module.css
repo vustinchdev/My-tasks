@@ -1,0 +1,19 @@
+.formLogin {
+    position: relative;
+    background-image: url(./../../../common/assets/images/paper.webp);
+    padding: 20px;
+  }
+  
+  .formLogin::before {
+    content: "";
+    display: block;
+    background-image: url(./../../../common/assets/images/pushpin.png);
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    left: 45%;
+    transform: translate(-50%, -50%);
+  }
+  
