@@ -1,0 +1,18 @@
+.todolistList {
+    font-style: italic;
+    font-weight: 500;
+  }
+  
+  .paper {
+    background-image: url(./../../../common/assets/images/paper.webp);
+    padding: 20px;
+  }
+  
+  .addItem {
+    background-image: url(./../../../common/assets/images/paper.webp);
+    padding: 20px;
+    max-width: 280px;
+    border-radius: 30px;
+    margin: 20px auto;
+  }
+  

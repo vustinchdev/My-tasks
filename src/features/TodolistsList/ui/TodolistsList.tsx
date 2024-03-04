@@ -9,6 +9,7 @@ import { selectIsLoggedIn } from "features/auth/model/authSelectors"
 import { AddItemForm } from "common/components"
 import { useAppSelector, useAppDispatch } from "common/hooks"
 import { TodoList } from "./Todolist/Todolist"
+import s from './TodolistList.module.css'
 
 type Props = {
   demo?: boolean
@@ -39,8 +40,8 @@ export const TodolistsList = ({ demo = false }: Props) => {
   }
 
   return (
-    <>
-      <Grid container style={{ margin: "20px" }}>
+    <div className={s.todolistList}>
+      <Grid container className={s.addItem}>
         <AddItemForm addItem={addTodolist} />
       </Grid>
 
@@ -48,13 +49,13 @@ export const TodolistsList = ({ demo = false }: Props) => {
         {todolists.map((tl) => {
           return (
             <Grid key={tl.id} item>
-              <Paper elevation={3} style={{ padding: "15px" }}>
+              <Paper elevation={3}  className={s.paper}>
                 <TodoList key={tl.id} demo={demo} todolist={tl} tasks={tasks[tl.id]} />
               </Paper>
             </Grid>
           )
         })}
       </Grid>
-    </>
+    </div>
   )
 }
