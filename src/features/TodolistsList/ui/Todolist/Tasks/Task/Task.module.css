@@ -3,5 +3,6 @@ li {
 }
 
 .isDone {
-  opacity: 0.5;
+  text-decoration: line-through #d32f2f 2px;
+  opacity: 0.7;
 }
