@@ -1,4 +1,3 @@
-import "./App.css";
 import Container from "@mui/material/Container"
 import { TodolistsList } from "../features/TodolistsList/ui/TodolistsList"
 import { Routes, Route, Navigate } from "react-router-dom"
