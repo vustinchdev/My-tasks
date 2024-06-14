@@ -6,6 +6,7 @@ import { TodolistDomain } from "features/TodolistsList/model/todolists/todolists
 import { FilterTasksButtons } from "./FirlterTasksButtons/FilterTasksButtons"
 import { Tasks } from "./Tasks/Tasks"
 import { TodolistTitle } from "./TodolistTitle/TodolistTitle"
+import s from "./Todolist.module.css"
 
 type Props = {
   todolist: TodolistDomain
@@ -28,7 +29,7 @@ export const TodoList: FC<Props> = memo(({ demo = false, tasks, todolist }: Prop
   )
 
   return (
-    <div className="todolist">
+    <div className={s.todolist}>
       <TodolistTitle todolist={todolist} />
       <AddItemForm addItem={addTaskCb} disabled={todolist.entityStatus === "loading"} />
       <Tasks todolist={todolist} tasks={tasks} />

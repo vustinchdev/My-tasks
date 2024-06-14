@@ -1,0 +1,19 @@
+.todolist {
+    position: relative;
+    word-break: break-word;
+    max-width: 350px;
+  }
+  
+  .todolist::before {
+    content: "";
+    display: block;
+    background-image: url(./../../../../common/assets/images/pushpin.png);
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -30px;
+    left: 45%;
+    transform: translate(-50%, -50%);
+  }
+  
