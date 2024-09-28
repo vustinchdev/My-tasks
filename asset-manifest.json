@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/My-tasks/static/css/main.61df6cce.css",
+    "main.js": "/My-tasks/static/js/main.aeb720cd.js",
+    "static/media/board.webp": "/My-tasks/static/media/board.a8f9457f99bc4a268806.webp",
+    "static/media/paper.webp": "/My-tasks/static/media/paper.d2ee701d29133c253fa9.webp",
+    "static/media/pushpin.png": "/My-tasks/static/media/pushpin.78cc62b30b7f162d114e.png",
+    "index.html": "/My-tasks/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.61df6cce.css",
+    "static/js/main.aeb720cd.js"
+  ]
+}
